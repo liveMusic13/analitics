@@ -1,8 +1,11 @@
+import { useNavigate } from 'react-router-dom';
 import SectionInfo from '../section-info/SectionInfo';
 import { data } from '../section-info/sectionInfo.data';
 import styles from './Content.module.scss';
 
 const Content = () => {
+	const navigate = useNavigate();
+
 	return (
 		<div className={styles.block__homePage}>
 			<img
@@ -23,6 +26,7 @@ const Content = () => {
 					);
 				})}
 			</div>
+			<button onClick={() => navigate('/auth')}>test auth</button>
 		</div>
 	);
 };
