@@ -1,4 +1,4 @@
-import Home from '../components/screens/Home/Home';
+import Home from '../components/screens/home/Home';
 import Auth from '../components/screens/auth/Auth';
 
 export const routes = [
