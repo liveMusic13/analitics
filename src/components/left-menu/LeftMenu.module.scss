@@ -1,0 +1,35 @@
+@import '../../assets/styles/variables';
+@import '../../assets/styles/functions';
+
+.wrapper_menu {
+	padding: adapt(16px, 1440px);
+	padding-top: adapt(24px, 1440px);
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+	height: 100%;
+	box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.05);
+	border-right: 1px solid $color_three;
+
+	> .logo {
+		width: adapt(23.65px, 1440px);
+		height: adapt(27.9px, 1440px);
+	}
+	> .menu {
+		> .menu__list {
+			> .menu__item {
+				padding: adapt(15px, 1440px);
+				padding-right: adapt(13px, 1440px);
+
+				> img {
+					width: adapt(20px, 1440px);
+				}
+
+				&:hover {
+					cursor: pointer;
+				}
+			}
+		}
+	}
+}
