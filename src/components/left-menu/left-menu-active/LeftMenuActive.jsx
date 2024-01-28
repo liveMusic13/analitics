@@ -31,7 +31,7 @@ const LeftMenuActive = () => {
 							</li>
 							<li className={styles.menu__item}>
 								<img
-									src='./images/icons/menu/change_menu.svg'
+									src='./images/icons/menu/change_menu_exit.svg'
 									alt='change_menu'
 								/>
 								Свернуть меню

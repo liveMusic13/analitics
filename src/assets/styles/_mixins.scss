@@ -1,0 +1,53 @@
+@import './variables';
+@import './functions';
+
+@mixin settings-for-search($width) {
+	width: $width;
+	height: adapt(56px, 1440px);
+	border-radius: adapt(8px, 1440px);
+	border: 1px solid rgba($color: $color_four, $alpha: 0.12);
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 2px 0px 2px adapt(10px, 1440px);
+	background-color: $color_seven;
+
+	&:hover {
+		cursor: pointer;
+	}
+
+	.block__description {
+		display: flex;
+		flex-direction: column;
+		gap: adapt(4px, 1440px);
+
+		> h2 {
+			font-size: 1rem;
+			line-height: 1.4;
+			color: $color_four;
+		}
+		> p {
+			font-size: 0.81rem;
+			color: rgba($color: $color_four, $alpha: 0.4);
+			line-height: 1.4;
+		}
+	}
+	.data__arrow {
+		width: adapt(18px, 1440px);
+		height: adapt(18px, 1440px);
+	}
+}
+
+@mixin menu-item() {
+	padding: adapt(15px, 1440px);
+	padding-right: adapt(13px, 1440px);
+	border-radius: adapt(8px, 1440px);
+
+	> img {
+		width: adapt(20px, 1440px);
+	}
+
+	&:hover {
+		cursor: pointer;
+	}
+}
