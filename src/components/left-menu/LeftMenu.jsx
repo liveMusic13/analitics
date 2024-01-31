@@ -2,6 +2,7 @@ import { useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { actions as isActiveMenuAction } from '../../store/is-active-menu/isActiveMenu.slice';
 import styles from './LeftMenu.module.scss';
+import { menuPageData, menuSettings } from './menuPage.data';
 
 const LeftMenu = () => {
 	const { pathname } = useLocation();
@@ -14,28 +15,70 @@ const LeftMenu = () => {
 					<img className={styles.logo} src='./images/logo.svg' alt='logo' />
 					<nav className={styles.menu}>
 						<ul className={styles.menu__list}>
-							<li className={styles.menu__item}>
-								<img src='./images/icons/menu/FAQ.svg' alt='FAQ' />
-							</li>
-							<li
-								className={styles.menu__item}
-								onClick={() => {
-									dispatch(isActiveMenuAction.toggleActiveMenu(''));
-								}}
-							>
-								<img
-									src='./images/icons/menu/change_menu.svg'
-									alt='change_menu'
-								/>
-							</li>
-							<li className={styles.menu__item}>
-								<img src='./images/icons/menu/logout.svg' alt='logout' />
-							</li>
+							{menuSettings.map(itemMenu => {
+								return (
+									<li
+										key={itemMenu.id}
+										className={styles.menu__item}
+										onClick={() => {
+											if (itemMenu.id === 1)
+												dispatch(isActiveMenuAction.toggleActiveMenu(''));
+										}}
+									>
+										<img src={itemMenu.src} alt='change_menu' />
+									</li>
+								);
+							})}
 						</ul>
 					</nav>
 				</div>
 			) : (
-				<div className={styles.wrapper_menu}></div>
+				<div className={styles.wrapper_menu}>
+					<img className={styles.logo} src='./images/logo.svg' alt='logo' />
+					<nav className={styles.menu}>
+						<ul className={styles.menu__list}>
+							{menuPageData.map(itemMenu => {
+								return (
+									<li
+										key={itemMenu.id}
+										className={
+											itemMenu.id === 0 && pathname === '/user-tonality'
+												? styles.menu__item_active
+												: styles.menu__item
+										}
+									>
+										<img
+											src={
+												itemMenu.id === 0 && pathname === '/user-tonality'
+													? itemMenu.src_active
+													: itemMenu.src
+											}
+											alt={itemMenu.title}
+										/>
+									</li>
+								);
+							})}
+						</ul>
+					</nav>
+					<nav className={styles.menu}>
+						<ul className={styles.menu__list}>
+							{menuSettings.map(itemMenu => {
+								return (
+									<li
+										key={itemMenu.id}
+										className={styles.menu__item}
+										onClick={() => {
+											if (itemMenu.id === 1)
+												dispatch(isActiveMenuAction.toggleActiveMenu(''));
+										}}
+									>
+										<img src={itemMenu.src} alt={itemMenu.title} />
+									</li>
+								);
+							})}
+						</ul>
+					</nav>
+				</div>
 			)}
 		</>
 	);

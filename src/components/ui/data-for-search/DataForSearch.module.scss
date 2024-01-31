@@ -1,0 +1,35 @@
+@import '../../../assets/styles/variables';
+@import '../../../assets/styles/functions';
+@import '../../../assets/styles/mixins';
+
+.wrapper_data {
+	width: adapt(285px, 1440px);
+	position: relative;
+
+	> .block__data {
+		@include settings-for-search(100%);
+	}
+
+	> .block__options {
+		width: 100%;
+		box-shadow: 0px 4px 10px rgba($color: #000000, $alpha: 0.1);
+		border: 1px solid rgba($color: $color_four, $alpha: 0.08);
+		border-radius: adapt(8px, 1440px);
+		padding: adapt(16px, 1440px);
+		display: flex;
+		flex-direction: column;
+		gap: adapt(8px, 1440px);
+		position: absolute;
+		top: 115%;
+
+		> .option {
+			font-size: 0.87rem;
+			line-height: 1.2;
+			color: rgba($color: $color_four, $alpha: 0.6);
+
+			&:hover {
+				cursor: pointer;
+			}
+		}
+	}
+}
