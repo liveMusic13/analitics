@@ -10,6 +10,8 @@
 	display: flex;
 	flex-direction: column;
 	gap: adapt(8px, 1440px);
+	overflow-y: auto;
+	height: 100%;
 
 	&::-webkit-scrollbar {
 		width: adapt(10px, 1440px);

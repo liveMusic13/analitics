@@ -1,5 +1,6 @@
 @import '../../../assets/styles/variables';
 @import '../../../assets/styles/functions';
+@import '../../../assets/styles/mixins';
 
 .wrapper_menu {
 	padding: adapt(16px, 1440px);
@@ -12,14 +13,22 @@
 	box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.05);
 	border-right: 1px solid $color_three;
 	margin-left: adapt(64px, 1440px);
-	width: adapt(284px, 1440px);
+	min-width: adapt(260px, 1440px);
+	background-color: $color_ten;
 
 	> .logo {
 		width: adapt(136px, 1440px);
 		height: adapt(28px, 1440px);
 	}
 	> .menu {
+		width: 100%;
+
 		> .menu__list {
+			display: flex;
+			flex-direction: column;
+			width: 100%;
+			gap: adapt(3px, 1440px);
+
 			> .menu__item {
 				padding: adapt(15px, 1440px) adapt(13px, 1440px);
 				font-size: 0.81rem;
@@ -27,6 +36,68 @@
 				color: $color_five;
 				display: flex;
 				align-items: center;
+				width: 100%;
+				@include menu-item();
+
+				> img {
+					width: adapt(20px, 1440px);
+					margin-right: adapt(13px, 1440px);
+				}
+
+				&:hover {
+					cursor: pointer;
+				}
+			}
+
+			> .menu__item_active {
+				background-color: $color_eleven;
+				font-size: 0.81rem;
+				@include menu-item();
+				color: $color_one;
+				display: flex;
+				align-items: center;
+
+				> img {
+					width: adapt(20px, 1440px);
+					margin-right: adapt(13px, 1440px);
+				}
+
+				&:hover {
+					cursor: pointer;
+				}
+			}
+		}
+
+		> .menu__list_settings {
+			display: flex;
+			flex-direction: column;
+			gap: adapt(5px, 1440px);
+			width: 100%;
+
+			> .menu__item {
+				padding: adapt(15px, 1440px) adapt(13px, 1440px);
+				font-size: 0.81rem;
+				line-height: 1.4;
+				color: $color_five;
+				display: flex;
+				align-items: center;
+				width: 100%;
+				@include menu-item();
+
+				> img {
+					width: adapt(20px, 1440px);
+					margin-right: adapt(13px, 1440px);
+				}
+
+				&:hover {
+					cursor: pointer;
+				}
+			}
+
+			> .menu__item_active {
+				background-color: $color_eleven;
+				font-size: 0.81rem;
+				@include menu-item();
 
 				> img {
 					width: adapt(20px, 1440px);

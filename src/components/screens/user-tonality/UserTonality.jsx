@@ -12,7 +12,8 @@ import styles from './UserTonality.module.scss';
 
 const UserTonality = () => {
 	const isActiveMenu = useSelector(store => store.isActiveMenu);
-	const dataUser = useSelector(state => state.dataUser);
+	const userTonalityData = useSelector(store => store.userTonalityData);
+	// const dataUser = useSelector(state => state.dataUser);
 	const isGraph = useSelector(state => state.isGraph);
 
 	return (
@@ -22,7 +23,13 @@ const UserTonality = () => {
 			<Content>
 				<div className={styles.block__pageName}>
 					<h3 className={styles.pageName__title}>Тональный ландшафт</h3>
-					<p>{dataUser.length} упоминаний</p>
+					<p>
+						{userTonalityData
+							? userTonalityData.tonality_values.negative_count +
+								userTonalityData.tonality_values.positive_count
+							: '0'}{' '}
+						упоминаний
+					</p>
 				</div>
 				<div className={styles.block__configureSearch}>
 					<DataForSearch />

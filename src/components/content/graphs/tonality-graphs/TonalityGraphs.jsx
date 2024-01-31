@@ -1,3 +1,5 @@
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { convertValuesToValue } from '../../../../utils/convertFields';
@@ -43,6 +45,17 @@ const TonalityGraphs = () => {
 		}
 	}, [activeButton]);
 
+	const saveDiagramAsPDF = () => {
+		const input = document.getElementById('graph-for-download'); // замените 'myDiagram' на id вашего элемента с диаграммой
+
+		html2canvas(input).then(canvas => {
+			const imgData = canvas.toDataURL('image/png');
+			const pdf = new jsPDF();
+			pdf.addImage(imgData, 'PNG', 0, 0);
+			pdf.save('download.pdf');
+		});
+	};
+
 	return (
 		<div className={styles.block__graph}>
 			<div className={styles.block__title}>
@@ -82,14 +95,17 @@ const TonalityGraphs = () => {
 					>
 						Скрыть / показать пояснения к графику
 					</button>
-					<button className={styles.button__settings}>
+					<button
+						className={styles.button__settings}
+						onClick={saveDiagramAsPDF}
+					>
 						<img src='../images/icons/setting/upload_active.svg' alt='icon' />
 					</button>
 				</div>
 			</div>
-			<div className={styles.container__graph}>
+			<div className={styles.container__graph} id='graph-for-download'>
 				{isViewAuthors ? (
-					<AuthorsGraph data={data} />
+					<AuthorsGraph data={data} isViewSource={isViewSource} />
 				) : (
 					<Mentions isViewSource={isViewSource} data={data} setData={setData} />
 				)}

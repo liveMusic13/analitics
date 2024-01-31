@@ -17,8 +17,8 @@ export const addThreeCircle = (arr, neg, pos) => {
 		group.flatMap(({ author_data }) =>
 			author_data.map(({ url, fullname, count_texts }) => ({
 				url,
-				fullname,
-				count_texts,
+				name: fullname,
+				value: count_texts,
 			})),
 		),
 	);
@@ -42,6 +42,5 @@ export const addThreeCircle = (arr, neg, pos) => {
 			}
 		});
 	}
-
 	return [objectNeg, objectPos];
 };

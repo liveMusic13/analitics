@@ -1,59 +1,51 @@
 import * as d3 from 'd3';
 import React, { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { TransformComponent, TransformWrapper } from 'react-zoom-pan-pinch';
+import { truncateDescription } from '../../../../../utils/descriptionLength';
 import { addThreeCircle } from '../../../../../utils/threeCircle';
+import styles from './AuthorsGraph.module.scss';
 
-const AuthorsGraph = () => {
-	const SIZE = 1500;
+const AuthorsGraph = ({ isViewSource }) => {
+	const SIZE = 1400;
 	const RADIUS = SIZE / 2;
 
 	const userTonalityData = useSelector(state => state.userTonalityData);
 	const negative = userTonalityData.tonality_hubs_values.negative_hubs;
 	const positive = userTonalityData.tonality_hubs_values.positive_hubs;
+	const [tooltipContent, setTooltipContent] = useState({ name: '', value: '' });
+	const [deletedData, setDeletedData] = useState(['']);
 
-	let addThreeCircleObjects = addThreeCircle(
+	let childrenNegative = addThreeCircle(
 		userTonalityData.authors_values,
 		negative,
 		positive,
 	)[0];
+	let childrenPositive = addThreeCircle(
+		userTonalityData.authors_values,
+		negative,
+		positive,
+	)[1];
 
 	const data = {
 		name: 'Авторы',
 		children: [
 			{
 				name: 'Негативные',
-				// children: [
-				// 	...negative
-				// 		.map(elem => {
-				// 			let matchResult = checkUrl(
-				// 				userTonalityData.authors_values,
-				// 				elem.name,
-				// 			);
-				// 			if (matchResult !== false) {
-				// 				return {
-				// 					name: elem.name,
-				// 					value: elem.values,
-				// 					color: elem.color,
-				// 					children: [matchResult],
-				// 				};
-				// 			}
-				// 		})
-				// 		.filter(Boolean), // удаляем 'undefined' элементы
-				// ],
 				children: [
 					...negative.map(elem => {
 						let childrenObjects = [];
 
-						for (let key in addThreeCircleObjects) {
+						for (let key in childrenNegative) {
 							if (key === elem.name) {
-								childrenObjects.push(addThreeCircleObjects[key]);
+								childrenObjects.push(childrenNegative[key]);
 							}
 						}
-
+						childrenObjects = childrenObjects.flat();
 						return {
 							name: elem.name,
-							value: elem.values,
 							color: elem.color,
+							children: childrenObjects,
 						};
 					}),
 				],
@@ -61,17 +53,26 @@ const AuthorsGraph = () => {
 			{
 				name: 'Позитивные',
 				children: [
-					...positive.map(elem => ({
-						name: elem.name,
-						value: elem.values,
-						color: elem.color,
-					})),
+					...positive.map(elem => {
+						let childrenObjects = [];
+
+						for (let key in childrenPositive) {
+							if (key === elem.name) {
+								childrenObjects.push(childrenPositive[key]);
+							}
+						}
+						childrenObjects = childrenObjects.flat();
+						return {
+							name: elem.name,
+							value: elem.values,
+							color: elem.color,
+							children: childrenObjects,
+						};
+					}),
 				],
 			},
 		],
 	};
-
-	console.log(data);
 
 	const svgRef = useRef(null);
 	const [viewBox, setViewBox] = useState('0,0,0,0');
@@ -111,11 +112,15 @@ const AuthorsGraph = () => {
 
 	useEffect(() => {
 		setViewBox(getAutoBox());
-	}, [data]);
+	}, []);
 
 	const getColor = d => {
-		while (d.depth > 1) d = d.parent;
-		return color(d.data.name);
+		if (d.data.color) {
+			return d.data.color; // Возвращает цвет из данных
+		} else {
+			while (d.depth > 1) d = d.parent;
+			return color(d.data.name);
+		}
 	};
 
 	const getTextTransform = d => {
@@ -126,60 +131,113 @@ const AuthorsGraph = () => {
 
 	const root = partition(data);
 
+	useEffect(() => {
+		const items = [];
+
+		// Обходим данные и добавляем объекты в массив
+		data.children.forEach(child => {
+			child.children.forEach(grandChild => {
+				items.push({
+					name: grandChild.name,
+					color: grandChild.color, // Добавляем цвет
+				});
+			});
+		});
+
+		// Обновляем состояние
+		setDeletedData(items);
+	}, []);
+
 	return (
-		<div
-			style={{
-				width: '100%',
-				height: '100%',
-				display: 'flex',
-				alignItems: 'center',
-				justifyContent: 'center',
-			}}
-		>
-			<svg
-				width='calc(1000 / 1440 * 100vw)'
-				height='calc(1000 / 1440 * 100vw)'
-				viewBox={viewBox}
-				ref={svgRef}
+		<div className={styles.wrapper_graf}>
+			<TransformWrapper>
+				<TransformComponent>
+					<svg
+						width='calc(940 / 1440 * 100vw)'
+						height='calc(400 / 1440 * 100vw)'
+						viewBox={viewBox}
+						ref={svgRef}
+					>
+						<g fillOpacity={0.6}>
+							{root
+								.descendants()
+								.filter(d => d.depth)
+								.map((d, i) => (
+									<path
+										key={`${d.data.name}-${i}`}
+										fill={getColor(d)}
+										d={arc(d)}
+										onMouseOver={() => {
+											setTooltipContent({
+												value: `Value: ${d.value}`,
+												name: `Name: ${d.data.name}`,
+											});
+											d3.select(this).style('fill', 'lightblue');
+										}}
+										onMouseOut={() => {
+											setTooltipContent({ name: '', value: '' });
+											d3.select(this).style('fill', getColor(d));
+										}}
+									>
+										<text>
+											{d
+												.ancestors()
+												.map(d => d.data.name)
+												.reverse()
+												.join('/')}
+											\n${format(d.value)}
+										</text>
+									</path>
+								))}
+						</g>
+						<g
+							pointerEvents='none'
+							textAnchor='middle'
+							// fontSize={'0.7rem'}
+							fontFamily='sans-serif'
+						>
+							{root
+								.descendants()
+								.filter(
+									d => d.depth && ((d.y0 + d.y1) / 2) * (d.x1 - d.x0) > 10,
+								)
+								.map((d, i) => (
+									<text
+										key={`${d.data.name}-${i}`}
+										transform={getTextTransform(d)}
+										dy='0.35em'
+										style={{ fontSize: '0.9rem' }}
+									>
+										{truncateDescription(d.data.name, 15)}
+									</text>
+								))}
+						</g>
+						<text
+							x='0%' // Позиционируем текст в центре SVG по горизонтали
+							y='0%' // Позиционируем текст в центре SVG по вертикали
+							textAnchor='middle' // Центрируем текст относительно его позиции
+							dy='.3em' // Смещаем текст немного вниз, чтобы центр текста был в точности в центре SVG
+							fontSize={'1.5rem'}
+						>
+							Тональность авторов
+						</text>
+					</svg>
+				</TransformComponent>
+			</TransformWrapper>
+			<div
+				className={styles.block__sources}
+				style={isViewSource ? { opacity: 1 } : { opacity: 0 }}
 			>
-				<g fillOpacity={0.6}>
-					{root
-						.descendants()
-						.filter(d => d.depth)
-						.map((d, i) => (
-							<path key={`${d.data.name}-${i}`} fill={getColor(d)} d={arc(d)}>
-								<text>
-									{d
-										.ancestors()
-										.map(d => d.data.name)
-										.reverse()
-										.join('/')}
-									\n${format(d.value)}
-								</text>
-							</path>
-						))}
-				</g>
-				<g
-					pointerEvents='none'
-					textAnchor='middle'
-					fontSize={10}
-					fontFamily='sans-serif'
-				>
-					{root
-						.descendants()
-						.filter(d => d.depth && ((d.y0 + d.y1) / 2) * (d.x1 - d.x0) > 10)
-						.map((d, i) => (
-							<text
-								key={`${d.data.name}-${i}`}
-								transform={getTextTransform(d)}
-								dy='0.35em'
-								style={{ fontSize: '0.9rem' }}
-							>
-								{d.data.name}
-							</text>
-						))}
-				</g>
-			</svg>
+				{deletedData.map((entry, index) => (
+					<p key={`deleted-${index}`} style={{ color: entry.color }}>
+						{entry.name}
+					</p>
+				))}
+			</div>
+			<div className={styles.tooltip}>
+				<p>{tooltipContent.name}</p>
+				<p>{tooltipContent.value}</p>
+			</div>
 		</div>
 	);
 };
