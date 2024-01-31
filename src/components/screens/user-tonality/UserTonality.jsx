@@ -25,8 +25,8 @@ const UserTonality = () => {
 					<h3 className={styles.pageName__title}>Тональный ландшафт</h3>
 					<p>
 						{userTonalityData
-							? userTonalityData.tonality_values.negative_count +
-								userTonalityData.tonality_values.positive_count
+							? userTonalityData?.tonality_values?.negative_count +
+								userTonalityData?.tonality_values?.positive_count
 							: '0'}{' '}
 						упоминаний
 					</p>
