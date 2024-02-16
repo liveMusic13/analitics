@@ -33,14 +33,19 @@ const LeftMenuActive = () => {
 							<li className={styles.menu__item}>
 								<img src='./images/icons/menu/FAQ.svg' alt='FAQ' /> FAQ
 							</li>
-							<li className={styles.menu__item}>
+							<li
+								className={styles.menu__item}
+								onClick={() =>
+									dispatch(isActiveMenuAction.toggleActiveMenu(''))
+								}
+							>
 								<img
 									src='./images/icons/menu/change_menu_exit.svg'
 									alt='change_menu'
 								/>
 								Свернуть меню
 							</li>
-							<li className={styles.menu__item} onClick={logoutHandler}>
+							<li className={styles.menu__item} onClick={() => logoutHandler()}>
 								<img src='./images/icons/menu/logout.svg' alt='logout' />
 								Выйти из аккаунта
 							</li>
@@ -52,7 +57,7 @@ const LeftMenuActive = () => {
 					className={styles.wrapper_menu}
 					style={
 						pathname !== '/'
-							? { position: 'absolute', left: '5%', zIndex: '5' }
+							? { position: 'absolute', left: '-5%', zIndex: '5' }
 							: {}
 					}
 				>
@@ -67,6 +72,7 @@ const LeftMenuActive = () => {
 								return (
 									<Link
 										key={itemMenu.id}
+										to={itemMenu.path}
 										className={
 											itemMenu.id === 0 && pathname === '/user-tonality'
 												? styles.menu__item_active
@@ -97,6 +103,7 @@ const LeftMenuActive = () => {
 										onClick={() => {
 											if (itemMenu.id === 1)
 												dispatch(isActiveMenuAction.toggleActiveMenu(''));
+											if (itemMenu.id === 2) logoutHandler();
 										}}
 									>
 										<img

@@ -9,7 +9,7 @@ export const data = [
 		id: 1,
 		src: './images/icons/menu/information_graph_active.svg',
 		text: 'Information graph',
-		path: '/user-tonality',
+		path: '/information-graf',
 	},
 	{
 		id: 2,

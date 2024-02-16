@@ -6,7 +6,6 @@ import { actions as userTonalityDataAction } from '../store/user-tonality-data/u
 import { generateColorsForObjects } from '../utils/generateColors';
 
 export const useAddTonalityData = () => {
-	const userTonalityData = useSelector(state => state.userTonalityData);
 	const dataForRequest = useSelector(state => state.dataForRequest);
 	const dispatch = useDispatch();
 

@@ -2,12 +2,12 @@
 @import '../../../assets/styles/functions';
 @import '../../../assets/styles/mixins';
 
-.wrapper_data {
-	width: adapt(285px, 1440px);
+.wrapper_param {
 	position: relative;
+	width: adapt(220px, 1440px);
 
-	> .block__data {
-		@include settings-for-search(100%);
+	> .block__param {
+		@include settings-for-search(adapt(220px, 1440px));
 	}
 
 	> .block__options {
@@ -22,16 +22,5 @@
 		position: absolute;
 		top: 115%;
 		background-color: $color_seven;
-		z-index: 9000;
-
-		> .option {
-			font-size: 0.87rem;
-			line-height: 1.2;
-			color: rgba($color: $color_four, $alpha: 0.6);
-
-			&:hover {
-				cursor: pointer;
-			}
-		}
 	}
 }

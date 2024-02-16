@@ -17,12 +17,14 @@ const AuthorsGraph = ({ isViewSource }) => {
 	const [deletedData, setDeletedData] = useState(['']);
 
 	let childrenNegative = addThreeCircle(
-		userTonalityData.authors_values,
+		userTonalityData.negative_authors_values,
+		userTonalityData.positive_authors_values,
 		negative,
 		positive,
 	)[0];
 	let childrenPositive = addThreeCircle(
-		userTonalityData.authors_values,
+		userTonalityData.negative_authors_values,
+		userTonalityData.positive_authors_values,
 		negative,
 		positive,
 	)[1];
@@ -64,7 +66,6 @@ const AuthorsGraph = ({ isViewSource }) => {
 						childrenObjects = childrenObjects.flat();
 						return {
 							name: elem.name,
-							value: elem.values,
 							color: elem.color,
 							children: childrenObjects,
 						};
@@ -118,8 +119,14 @@ const AuthorsGraph = ({ isViewSource }) => {
 		if (d.data.color) {
 			return d.data.color; // Возвращает цвет из данных
 		} else {
-			while (d.depth > 1) d = d.parent;
-			return color(d.data.name);
+			if (d.data.name === 'Позитивные') {
+				return '#006400';
+			} else if (d.data.name === 'Негативные') {
+				return '#8B0000';
+			} else {
+				while (d.depth > 1) d = d.parent;
+				return color(d.data.name);
+			}
 		}
 	};
 
@@ -165,6 +172,7 @@ const AuthorsGraph = ({ isViewSource }) => {
 								.map((d, i) => (
 									<path
 										key={`${d.data.name}-${i}`}
+										style={{ cursor: d.data.url ? 'pointer' : 'default' }}
 										fill={getColor(d)}
 										d={arc(d)}
 										onMouseOver={() => {
@@ -177,6 +185,9 @@ const AuthorsGraph = ({ isViewSource }) => {
 										onMouseOut={() => {
 											setTooltipContent({ name: '', value: '' });
 											d3.select(this).style('fill', getColor(d));
+										}}
+										onClick={() => {
+											if (d.data.url) window.open(d.data.url, '_blank');
 										}}
 									>
 										<text>
@@ -217,7 +228,7 @@ const AuthorsGraph = ({ isViewSource }) => {
 							y='0%' // Позиционируем текст в центре SVG по вертикали
 							textAnchor='middle' // Центрируем текст относительно его позиции
 							dy='.3em' // Смещаем текст немного вниз, чтобы центр текста был в точности в центре SVG
-							fontSize={'1.5rem'}
+							fontSize={'1.8rem'}
 						>
 							Тональность авторов
 						</text>

@@ -3,7 +3,6 @@ import jsPDF from 'jspdf';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { convertValuesToValue } from '../../../../utils/convertFields';
-import { countAuthors } from '../../../../utils/countAuthors';
 import styles from './TonalityGraphs.module.scss';
 import AuthorsGraph from './authors-graph/AuthorsGraph';
 import Mentions from './mentions/Mentions';
@@ -13,7 +12,6 @@ const TonalityGraphs = () => {
 	const [data, setData] = useState(
 		convertValuesToValue(userTonalityData.tonality_hubs_values.negative_hubs),
 	);
-
 	const [activeButton, setActiveButton] = useState('negative');
 	const [isViewSource, setIsViewSource] = useState(true);
 	const [isViewAuthors, setIsViewAuthors] = useState(false);
@@ -41,7 +39,12 @@ const TonalityGraphs = () => {
 				),
 			);
 		} else {
-			setData(convertValuesToValue(userTonalityData.authors_values.flat()));
+			setData(
+				convertValuesToValue(
+					//HELP: Мне данные не нужны в авторах, поэтому просто ставлю это значение, чтобы ошибки не возникало
+					userTonalityData.tonality_hubs_values.positive_hubs,
+				),
+			);
 		}
 	}, [activeButton]);
 
@@ -84,7 +87,9 @@ const TonalityGraphs = () => {
 						}
 						onClick={() => handleClick('tonality')}
 					>
-						Тональность авторов ({countAuthors(userTonalityData.authors_values)}
+						Тональность авторов (
+						{userTonalityData.negative_authors_values.length +
+							userTonalityData.positive_authors_values.length}
 						)
 					</button>
 				</div>

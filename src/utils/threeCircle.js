@@ -1,4 +1,4 @@
-export const addThreeCircle = (arr, neg, pos) => {
+export const addThreeCircle = (arrNegAuthor, arrPosAuthor, neg, pos) => {
 	let objectNeg = {};
 	let objectPos = {};
 
@@ -13,19 +13,28 @@ export const addThreeCircle = (arr, neg, pos) => {
 		}
 	});
 
-	const editArr = arr.flatMap(group =>
-		group.flatMap(({ author_data }) =>
-			author_data.map(({ url, fullname, count_texts }) => ({
-				url,
-				name: fullname,
-				value: count_texts,
-			})),
-		),
+	const editNegAuthor = arrNegAuthor.map(({ author_data }) =>
+		author_data.map(({ url, fullname, count_texts }) => ({
+			url,
+			name: fullname,
+			value: count_texts,
+		})),
 	);
 
+	const editPosAuthor = arrPosAuthor.map(({ author_data }) =>
+		author_data.map(({ url, fullname, count_texts }) => ({
+			url,
+			name: fullname,
+			value: count_texts,
+		})),
+	);
+
+	const flatNegAuthor = editNegAuthor.flat();
+	const flatPosAuthor = editPosAuthor.flat();
+
 	for (let key in objectNeg) {
-		editArr.map(author => {
-			if (author.url.includes(key)) {
+		flatNegAuthor.map(author => {
+			if (author.url && author.url.includes(key)) {
 				if (objectNeg[key]) {
 					objectNeg[key].push(author);
 				}
@@ -34,13 +43,14 @@ export const addThreeCircle = (arr, neg, pos) => {
 	}
 
 	for (let key in objectPos) {
-		editArr.map(author => {
-			if (author.url.includes(key)) {
+		flatPosAuthor.map(author => {
+			if (author.url && author.url.includes(key)) {
 				if (objectPos[key]) {
 					objectPos[key].push(author);
 				}
 			}
 		});
 	}
+
 	return [objectNeg, objectPos];
 };
