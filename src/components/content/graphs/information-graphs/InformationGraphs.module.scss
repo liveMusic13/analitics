@@ -1,7 +1,108 @@
-.chartdiv {
-	width: 80vw;
-	height: 500px;
-}
-.test {
+@import '../../../../assets/styles/variables';
+@import '../../../../assets/styles/functions';
+
+.block__graph {
+	height: 81%;
 	width: 100%;
+	margin-top: adapt(16px, 1440px);
+	margin-bottom: adapt(40px, 1440px);
+	padding: adapt(16px, 1440px);
+	background-color: $color_seven;
+	display: flex;
+	flex-direction: column;
+
+	> .block__title {
+		display: flex;
+		justify-content: space-between;
+
+		> .block__buttons {
+			height: adapt(42px, 1440px);
+			border-radius: adapt(8px, 1440px);
+			background-color: $color_eleven;
+
+			> button {
+				height: 100%;
+				border-radius: adapt(8px, 1440px);
+				padding: adapt(8px, 1440px) adapt(12px, 1440px);
+				font-size: 0.81rem;
+				line-height: 1.4;
+
+				&:hover {
+					cursor: pointer;
+				}
+			}
+
+			> .activeButton {
+				color: $color_seven;
+				background-color: $color_one;
+			}
+		}
+
+		> .block__settings {
+			height: adapt(33px, 1440px);
+			display: flex;
+			gap: 8px;
+
+			> button {
+				&:hover {
+					cursor: pointer;
+				}
+			}
+
+			> .button__description {
+				width: adapt(258px, 1440px);
+				height: 100%;
+				border-radius: adapt(4px, 1440px);
+				background-color: $color_eleven;
+				color: $color_one;
+				font-size: 0.75rem;
+			}
+			> .button__settings {
+				border-radius: adapt(4px, 1440px);
+				width: adapt(36px, 1440px);
+				height: 100%;
+				background-color: $color_eleven;
+			}
+		}
+	}
+
+	> .container__graph {
+		align-self: center;
+		width: 100%;
+		height: 98%;
+		display: flex;
+		position: relative;
+	}
+}
+
+.block__sources {
+	max-width: adapt(258px, 1440px);
+	padding: adapt(15px, 1440px) adapt(16px, 1440px);
+	border-radius: adapt(8px, 1440px);
+	box-shadow: 0px 4px 10px rgba($color: #000000, $alpha: 0.1);
+	margin-right: 3.6%;
+	display: flex;
+	flex-direction: column;
+	gap: adapt(8px, 1440px);
+	overflow-y: auto;
+	height: 98%;
+	position: absolute;
+	top: 0;
+	right: 0;
+	z-index: 1000;
+	background-color: white;
+
+	&::-webkit-scrollbar {
+		width: adapt(10px, 1440px);
+		background-color: $color_eleven;
+	}
+
+	&::-webkit-scrollbar-thumb {
+		background-color: $color_one;
+		border-radius: adapt(5px, 1440px);
+	}
+
+	> p {
+		font-size: 0.87rem;
+	}
 }

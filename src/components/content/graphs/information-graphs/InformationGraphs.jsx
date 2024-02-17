@@ -1,145 +1,103 @@
-import * as am5 from '@amcharts/amcharts5';
-import * as am5hierarchy from '@amcharts/amcharts5/hierarchy';
-import am5themes_Animated from '@amcharts/amcharts5/themes/Animated';
-import { useEffect, useState } from 'react';
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { TransformComponent, TransformWrapper } from 'react-zoom-pan-pinch';
 import styles from './InformationGraphs.module.scss';
+import Test from './bubbles/Test';
 
 const InformationGraphs = () => {
-	const [chart, setChart] = useState(null);
+	const [activeButton, setActiveButton] = useState('dissemination');
+	const [isViewSource, setIsViewSource] = useState(true);
 	const informationGraphData = useSelector(state => state.informationGraphData);
 
-	useEffect(() => {
-		const timer = setTimeout(() => {
-			if (chart) {
-				chart.dispose();
+	const saveDiagramAsPDF = () => {
+		const input = document.getElementById('graph-for-download'); // замените 'myDiagram' на id вашего элемента с диаграммой
+
+		html2canvas(input).then(canvas => {
+			const imgData = canvas.toDataURL('image/png');
+			const pdf = new jsPDF('p', 'mm', 'a4'); // A4 size page of PDF
+			const pageWidth = pdf.internal.pageSize.getWidth();
+			const pageHeight = pdf.internal.pageSize.getHeight();
+
+			let imgWidth = canvas.width;
+			let imgHeight = canvas.height;
+			let ratio = imgWidth / imgHeight;
+
+			let width, height;
+			if (pageWidth / pageHeight > ratio) {
+				height = pageHeight;
+				width = height * ratio;
+			} else {
+				width = pageWidth;
+				height = width / ratio;
 			}
 
-			const root = am5.Root.new('chartdiv');
-			root.setThemes([am5themes_Animated.new(root)]);
-
-			const container = root.container.children.push(
-				am5.Container.new(root, {
-					width: am5.percent(100),
-					height: am5.percent(100),
-					layout: root.verticalLayout,
-				}),
-			);
-
-			const series = container.children.push(
-				am5hierarchy.ForceDirected.new(root, {
-					downDepth: 1,
-					initialDepth: 2,
-					topDepth: 1,
-					valueField: 'value',
-					categoryField: 'name',
-					childDataField: 'children',
-				}),
-			);
-
-			series.outerCircles.template.states.create('disabled', {
-				fillOpacity: 0.5,
-				strokeOpacity: 0,
-				strokeDasharray: 0,
-			});
-
-			series.outerCircles.template.states.create('hoverDisabled', {
-				fillOpacity: 0.5,
-				strokeOpacity: 0,
-				strokeDasharray: 0,
-			});
-
-			series.nodes.template.events.on('dblclick', function (ev) {
-				var data = ev.target.dataItem.dataContext;
-				var url = data.url;
-				window.open(url);
-			});
-
-			// series.data.setAll([
-			// 	{
-			// 		name: 'Root',
-			// 		value: 0,
-			// 		children: informationGraphData.values.map(author => {
-			// 			return {
-			// 				name: author.author.fullname,
-			// 				url: author.author.url,
-			// 				type: 'values',
-			// 				...(author.reposts.length === 0
-			// 					? { value: author.author.audienceCount }
-			// 					: {
-			// 							children: author.reposts.map(repost => ({
-			// 								name: repost.fullname,
-			// 								value: repost.audienceCount,
-			// 								url: repost.url,
-			// 								type: 'reposts'
-			// 							})),
-			// 						}),
-			// 			};
-			// 		}),
-			// 	},
-			// ]);
-
-			let data = informationGraphData.values;
-			let rootData = {
-				name: 'Root',
-				value: 0,
-				children: [],
-			};
-
-			for (let i = 0; i < data.length; i++) {
-				let node = {
-					name: data[i].author.fullname,
-					url: data[i].author.url,
-					type: 'values',
-					value: data[i].author.audienceCount,
-					children: [],
-				};
-
-				if (data[i].reposts && data[i].reposts.length !== 0) {
-					node.children = data[i].reposts.map(repost => ({
-						name: repost.fullname,
-						value: repost.audienceCount,
-						url: repost.url,
-						type: 'reposts',
-					}));
-				}
-
-				if (i === 0) {
-					rootData.children.push(node);
-				} else {
-					let parent = rootData;
-					while (
-						parent.children &&
-						parent.children.length !== 0 &&
-						parent.children[0].type === 'values'
-					) {
-						parent = parent.children[0];
-					}
-					parent.children.push(node);
-				}
-			}
-
-			series.data.setAll([rootData]);
-
-			series.set('selectedDataItem', series.dataItems[0]);
-
-			setChart(root);
-		}, 0);
-		return () => {
-			clearTimeout(timer);
-			if (chart) {
-				chart.dispose();
-			}
-		};
-	}, []);
+			pdf.addImage(imgData, 'PNG', 0, 0, width, height);
+			pdf.save('download.pdf');
+		});
+	};
 
 	return (
-		<TransformWrapper className={styles.test}>
-			<TransformComponent>
-				<div id='chartdiv' className={styles.chartdiv}></div>
-			</TransformComponent>
-		</TransformWrapper>
+		<div className={styles.block__graph}>
+			<div className={styles.block__title}>
+				<div className={styles.block__buttons}>
+					<button
+						className={
+							activeButton === 'dissemination'
+								? styles.activeButton
+								: styles.button
+						}
+						onClick={() => setActiveButton('dissemination')}
+					>
+						Граф распространения информации
+					</button>
+					<button
+						className={
+							activeButton === 'firstTwenty'
+								? styles.activeButton
+								: styles.button
+						}
+						onClick={() => setActiveButton('firstTwenty')}
+					>
+						Первые 20 авторов
+					</button>
+					<button
+						className={
+							activeButton === 'dynamics' ? styles.activeButton : styles.button
+						}
+						onClick={() => setActiveButton('dynamics')}
+					>
+						Динамика по авторам
+					</button>
+				</div>
+				<div className={styles.block__settings}>
+					<button
+						className={styles.button__description}
+						onClick={() => setIsViewSource(!isViewSource)}
+					>
+						Скрыть / показать пояснения к графику
+					</button>
+					<button
+						className={styles.button__settings}
+						onClick={saveDiagramAsPDF}
+					>
+						<img src='../images/icons/setting/upload_active.svg' alt='icon' />
+					</button>
+				</div>
+			</div>
+			<div className={styles.container__graph} id='graph-for-download'>
+				{/* <Bubbles /> */}
+				<Test />
+				<div
+					className={styles.block__sources}
+					style={isViewSource ? { opacity: 1 } : { opacity: 0 }}
+				>
+					{informationGraphData.values.map(author => {
+						return <p>{author.author.fullname}</p>;
+					})}
+				</div>
+			</div>
+		</div>
 	);
 };
 

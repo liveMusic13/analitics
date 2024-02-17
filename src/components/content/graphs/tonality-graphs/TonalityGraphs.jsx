@@ -54,7 +54,10 @@ const TonalityGraphs = () => {
 		html2canvas(input).then(canvas => {
 			const imgData = canvas.toDataURL('image/png');
 			const pdf = new jsPDF();
-			pdf.addImage(imgData, 'PNG', 0, 0);
+			const width = pdf.internal.pageSize.getWidth(); //TODO: ПРОТЕСТИТЬ ЧТО ВСЕ РАБОТАЕТ ЗДЕСЬ
+			const height = pdf.internal.pageSize.getHeight();
+			pdf.addImage(imgData, 'PNG', 0, 0, width, height);
+			// pdf.addImage(imgData, 'PNG', 0, 0);
 			pdf.save('download.pdf');
 		});
 	};
