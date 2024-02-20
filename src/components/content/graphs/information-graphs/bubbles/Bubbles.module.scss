@@ -1,0 +1,33 @@
+@import '../../../../../assets/styles/variables';
+@import '../../../../../assets/styles/functions';
+
+.chartdiv {
+	width: 63vw;
+	height: 65vh;
+}
+.block__sources {
+	max-width: adapt(258px, 1440px);
+	padding: adapt(15px, 1440px) adapt(16px, 1440px);
+	border-radius: adapt(8px, 1440px);
+	box-shadow: 0px 4px 10px rgba($color: #000000, $alpha: 0.1);
+	margin-right: 3.6%;
+	display: flex;
+	flex-direction: column;
+	gap: adapt(8px, 1440px);
+	overflow-y: auto;
+	height: 95%;
+
+	&::-webkit-scrollbar {
+		width: adapt(10px, 1440px);
+		background-color: $color_eleven;
+	}
+
+	&::-webkit-scrollbar-thumb {
+		background-color: $color_one;
+		border-radius: adapt(5px, 1440px);
+	}
+
+	> p {
+		font-size: 0.87rem;
+	}
+}

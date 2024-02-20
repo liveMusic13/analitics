@@ -22,6 +22,13 @@ const Home = () => {
 		console.log(responce);
 	};
 
+	const test = async () => {
+		const responce = await $axios.get(
+			'/information_graph?index=rosbank_01.02.2024-07.02.2024&min_date=1706760780&max_date=1707218189',
+		);
+		console.log(responce);
+	};
+
 	useEffect(() => {
 		if (!isAuth) navigate('/auth');
 		if (isAuth) getDataUser();
@@ -32,6 +39,7 @@ const Home = () => {
 			<LeftMenu />
 			{isActiveMenu.isActiveMenu && <LeftMenuActive />}
 			<Content>
+				<button onClick={test}>test</button>
 				<SectionSelection />
 			</Content>
 		</Layout>

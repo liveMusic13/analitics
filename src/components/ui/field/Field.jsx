@@ -1,8 +1,12 @@
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { actions as dataForRequestAction } from '../../../store/data-for-request/dataForRequest.slice';
 import styles from './Field.module.scss';
 
 const Field = ({ type, placeholder, register, id, label, auth }) => {
 	const [isViewPassword, setIsViePassword] = useState(false);
+	const { query_str } = useSelector(state => state.dataForRequest);
+	const dispatch = useDispatch();
 
 	return (
 		<>
@@ -46,7 +50,18 @@ const Field = ({ type, placeholder, register, id, label, auth }) => {
 					)}
 				</div>
 			) : (
-				<input className={styles.input} type='text' placeholder={placeholder} />
+				<div className={styles.block__input_search}>
+					<img src='../images/icons/input_button/search.svg' alt='search' />
+					<input
+						className={styles.input}
+						type='text'
+						placeholder={placeholder}
+						value={query_str}
+						onChange={e =>
+							dispatch(dataForRequestAction.addQueryStr(e.target.value))
+						}
+					/>
+				</div>
 			)}
 		</>
 	);

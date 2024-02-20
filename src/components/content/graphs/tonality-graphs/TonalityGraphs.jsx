@@ -3,7 +3,6 @@ import jsPDF from 'jspdf';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { convertValuesToValue } from '../../../../utils/convertFields';
-import { countAuthors } from '../../../../utils/countAuthors';
 import styles from './TonalityGraphs.module.scss';
 import AuthorsGraph from './authors-graph/AuthorsGraph';
 import Mentions from './mentions/Mentions';
@@ -13,7 +12,6 @@ const TonalityGraphs = () => {
 	const [data, setData] = useState(
 		convertValuesToValue(userTonalityData.tonality_hubs_values.negative_hubs),
 	);
-
 	const [activeButton, setActiveButton] = useState('negative');
 	const [isViewSource, setIsViewSource] = useState(true);
 	const [isViewAuthors, setIsViewAuthors] = useState(false);
@@ -41,7 +39,12 @@ const TonalityGraphs = () => {
 				),
 			);
 		} else {
-			setData(convertValuesToValue(userTonalityData.authors_values.flat()));
+			setData(
+				convertValuesToValue(
+					//HELP: Мне данные не нужны в авторах, поэтому просто ставлю это значение, чтобы ошибки не возникало
+					userTonalityData.tonality_hubs_values.positive_hubs,
+				),
+			);
 		}
 	}, [activeButton]);
 
@@ -51,7 +54,10 @@ const TonalityGraphs = () => {
 		html2canvas(input).then(canvas => {
 			const imgData = canvas.toDataURL('image/png');
 			const pdf = new jsPDF();
-			pdf.addImage(imgData, 'PNG', 0, 0);
+			const width = pdf.internal.pageSize.getWidth(); //TODO: ПРОТЕСТИТЬ ЧТО ВСЕ РАБОТАЕТ ЗДЕСЬ
+			const height = pdf.internal.pageSize.getHeight();
+			pdf.addImage(imgData, 'PNG', 0, 0, width, height);
+			// pdf.addImage(imgData, 'PNG', 0, 0);
 			pdf.save('download.pdf');
 		});
 	};
@@ -84,7 +90,9 @@ const TonalityGraphs = () => {
 						}
 						onClick={() => handleClick('tonality')}
 					>
-						Тональность авторов ({countAuthors(userTonalityData.authors_values)}
+						Тональность авторов (
+						{userTonalityData.negative_authors_values.length +
+							userTonalityData.positive_authors_values.length}
 						)
 					</button>
 				</div>

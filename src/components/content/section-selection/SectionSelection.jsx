@@ -1,5 +1,5 @@
-import SectionInfo from '../section-info/SectionInfo';
-import { data } from '../section-info/sectionInfo.data';
+import SectionInfo from './section-info/SectionInfo';
+import { data } from './section-info/sectionInfo.data';
 import styles from './SectionSelection.module.scss';
 
 const SectionSelection = () => {

@@ -3,20 +3,20 @@ import { useLocation } from 'react-router-dom';
 import { useCheckIsGraf } from '../../../hooks/useCheckIsGraf';
 import Content from '../../content/Content';
 import BeforeSearch from '../../content/before-search/BeforeSearch';
-import TonalityGraphs from '../../content/graphs/tonality-graphs/TonalityGraphs';
+import InformationGraphs from '../../content/graphs/information-graphs/InformationGraphs';
 import Layout from '../../layout/Layout';
 import LeftMenu from '../../left-menu/LeftMenu';
 import LeftMenuActive from '../../left-menu/left-menu-active/LeftMenuActive';
+import AdditionalParameters from '../../ui/additional-parameters/AdditionalParameters';
 import Button from '../../ui/button/Button';
 import CustomCalendar from '../../ui/custom-calendar/CustomCalendar';
 import DataForSearch from '../../ui/data-for-search/DataForSearch';
-import styles from './UserTonality.module.scss';
+import Field from '../../ui/field/Field';
+import styles from './InformationGraf.module.scss';
 
-const UserTonality = () => {
-	const { pathname } = useLocation();
+const InformationGraf = () => {
 	const isActiveMenu = useSelector(store => store.isActiveMenu);
-	const userTonalityData = useSelector(store => store.userTonalityData);
-	// const dataUser = useSelector(state => state.dataUser);
+	const { pathname } = useLocation();
 	const isGraph = useSelector(state => state.isGraph);
 	useCheckIsGraf();
 
@@ -29,30 +29,24 @@ const UserTonality = () => {
 			)}
 			<Content>
 				<div className={styles.block__pageName}>
-					<h3 className={styles.pageName__title}>Тональный ландшафт</h3>
-					<p>
-						{userTonalityData
-							? userTonalityData?.tonality_values?.negative_count +
-								userTonalityData?.tonality_values?.positive_count
-							: '0'}{' '}
-						упоминаний
-					</p>
+					<h3 className={styles.pageName__title}>Информационный граф</h3>
+					<p>sdsdfs</p>
 				</div>
 				<div className={styles.block__configureSearch}>
 					<DataForSearch />
 					<CustomCalendar />
-					<Button type='submit' buttonFor='request-graf'>
-						Запуск
-					</Button>
+					<AdditionalParameters />
+					<Field placeholder='Поиск по тексту' />
+					<Button buttonFor='information-graf'>Запуск</Button>
 				</div>
-				{isGraph.isGraph ? (
-					<TonalityGraphs />
+				{isGraph.isGraph ? ( // TODO: ПОТОМ ПОМЕНЯТЬ УСЛОВИЕ ОБРАТНО, БЕЗ ОТРИЦАНИЯ
+					<InformationGraphs />
 				) : (
-					<BeforeSearch title='Тональный ландшафт' />
+					<BeforeSearch title='Информационный граф' />
 				)}
 			</Content>
 		</Layout>
 	);
 };
 
-export default UserTonality;
+export default InformationGraf;
