@@ -3,7 +3,7 @@ import jsPDF from 'jspdf';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import styles from './InformationGraphs.module.scss';
-import Test from './bubbles/Test';
+import BarInformation from './bar-information/BarInformation';
 
 const InformationGraphs = () => {
 	const [activeButton, setActiveButton] = useState('dissemination');
@@ -87,15 +87,8 @@ const InformationGraphs = () => {
 			</div>
 			<div className={styles.container__graph} id='graph-for-download'>
 				{/* <Bubbles /> */}
-				<Test />
-				<div
-					className={styles.block__sources}
-					style={isViewSource ? { opacity: 1 } : { opacity: 0 }}
-				>
-					{informationGraphData.values.map(author => {
-						return <p>{author.author.fullname}</p>;
-					})}
-				</div>
+				{/* <Test isViewSource={isViewSource} /> */}
+				<BarInformation />
 			</div>
 		</div>
 	);

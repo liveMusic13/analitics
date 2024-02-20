@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import { TransformComponent, TransformWrapper } from 'react-zoom-pan-pinch';
 import styles from './Bubbles.module.scss';
 
-const Test = () => {
+const Test = ({ isViewSource }) => {
 	const [chart, setChart] = useState(null);
 	const informationGraphData = useSelector(state => state.informationGraphData);
 
@@ -125,11 +125,21 @@ const Test = () => {
 	}, []);
 
 	return (
-		<TransformWrapper>
-			<TransformComponent>
-				<div id='chartdiv' className={styles.chartdiv}></div>
-			</TransformComponent>
-		</TransformWrapper>
+		<>
+			<TransformWrapper>
+				<TransformComponent>
+					<div id='chartdiv' className={styles.chartdiv}></div>
+				</TransformComponent>
+			</TransformWrapper>
+			<div
+				className={styles.block__sources}
+				style={isViewSource ? { opacity: 1 } : { opacity: 0 }}
+			>
+				{informationGraphData.values.map(author => {
+					return <p key={Math.random()}>{author.author.fullname}</p>;
+				})}
+			</div>
+		</>
 	);
 };
 

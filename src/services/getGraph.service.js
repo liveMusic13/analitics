@@ -13,7 +13,9 @@ export const getGraph = {
 	},
 	getInformation: async data => {
 		try {
-			const responce = await $axios.post('/information_graph', data);
+			const responce = await $axios.get(
+				`/information_graph?index=${data.index}&min_date=${data.min_data}&max_date=${data.max_data}`,
+			);
 
 			console.log(responce.data);
 			return responce.data;

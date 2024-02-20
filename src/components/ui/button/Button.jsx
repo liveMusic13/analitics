@@ -1,25 +1,10 @@
-import { useDispatch } from 'react-redux';
-import { $axios } from '../../../api.js';
 import { useAddTonalityData } from '../../../hooks/useAddTonalityData';
 import { useGetInformationGraf } from '../../../hooks/useGetInformationGraf.js';
-import { actions as informationGrafDataAction } from '../../../store/information-graf-data/informationGrafData.slice.js';
-import { actions as isGraphAction } from '../../../store/is-graph/isGraph.slice.js';
 import styles from './Button.module.scss';
 
 const Button = ({ children, type, buttonFor, setViewCalendar }) => {
 	const { addTonality, dataForRequest } = useAddTonalityData();
 	const { addInformationGraf } = useGetInformationGraf();
-
-	const dispatch = useDispatch();
-	const test = async () => {
-		const responce = await $axios.get(
-			'/information_graph?index=rosbank_01.02.2024-07.02.2024&min_date=1706760780&max_date=1707218189',
-		);
-		console.log(responce);
-
-		dispatch(informationGrafDataAction.addInformationGraphData(responce.data));
-		dispatch(isGraphAction.activeGraph(''));
-	};
 
 	return (
 		<>
@@ -58,15 +43,15 @@ const Button = ({ children, type, buttonFor, setViewCalendar }) => {
 						width: 'calc(144 / 1440 * 100vw)',
 						height: 'calc(56 / 1440 * 100vw)',
 					}}
-					// onClick={() =>
-					// 	addInformationGraf({
-					// 		index: 'rosbank_01.02.2024-07.02.2024',
-					// 		min_data: '1706760780',
-					// 		max_data: '1707218189',
-					// 		query_str: 'карта',
-					// 	})
-					// }
-					onClick={test}
+					onClick={() =>
+						addInformationGraf({
+							index:
+								'skillfactory_zaprosy_na_obuchenie_08_11_2023_14_11_2023_655335f',
+							min_data: '1699391103',
+							max_data: '1699951756',
+							query_str: 'карта',
+						})
+					}
 				>
 					{children}
 				</button>
