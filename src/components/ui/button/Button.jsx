@@ -2,7 +2,7 @@ import { useAddTonalityData } from '../../../hooks/useAddTonalityData';
 import { useGetInformationGraf } from '../../../hooks/useGetInformationGraf.js';
 import styles from './Button.module.scss';
 
-const Button = ({ children, type, buttonFor, setViewCalendar }) => {
+const Button = ({ children, type, buttonFor, setViewCalendar, navigate }) => {
 	const { addTonality, dataForRequest } = useAddTonalityData();
 	const { addInformationGraf } = useGetInformationGraf();
 
@@ -45,13 +45,29 @@ const Button = ({ children, type, buttonFor, setViewCalendar }) => {
 					}}
 					onClick={() =>
 						addInformationGraf({
-							index:
-								'skillfactory_zaprosy_na_obuchenie_08_11_2023_14_11_2023_655335f',
-							min_data: '1699391103',
-							max_data: '1699951756',
-							query_str: 'карта',
+							// index: 2,
+							// min_data: '1705266000',
+							// max_data: '1705846629',
+							// query_str: 'data',
+							index: dataForRequest.index,
+							// min_data: '1705266000',
+							// max_data: '1705846629',
+							min_data: dataForRequest.min_data,
+							max_data: dataForRequest.max_data,
+							query_str: dataForRequest.query_str,
+							post: dataForRequest.post,
+							repost: dataForRequest.repost,
+							SMI: dataForRequest.SMI,
 						})
 					}
+				>
+					{children}
+				</button>
+			) : buttonFor === 'navigate' ? (
+				<button
+					className={styles.button}
+					type={type}
+					onClick={() => navigate('/')}
 				>
 					{children}
 				</button>

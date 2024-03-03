@@ -22,24 +22,29 @@ const Home = () => {
 		console.log(responce);
 	};
 
-	const test = async () => {
-		const responce = await $axios.get(
-			'/information_graph?index=rosbank_01.02.2024-07.02.2024&min_date=1706760780&max_date=1707218189',
-		);
-		console.log(responce);
-	};
-
 	useEffect(() => {
 		if (!isAuth) navigate('/auth');
 		if (isAuth) getDataUser();
 	}, [isAuth]);
+
+	// const test = async () => {
+	// 	try {
+	// 		const responce = await $axios.get(
+	// 			'/information_graph?index=2&min_date=1705266000&max_date=1705846629&query_str=data',
+	// 			// '/information_graph?index=2&min_date=1705266000&max_date=1705846629&query_str=data',
+	// 		);
+	// 		console.log(responce);
+	// 	} catch (error) {
+	// 		console.log(error);
+	// 	}
+	// };
 
 	return (
 		<Layout justifyContent='space-between'>
 			<LeftMenu />
 			{isActiveMenu.isActiveMenu && <LeftMenuActive />}
 			<Content>
-				<button onClick={test}>test</button>
+				{/* <button onClick={test}>test</button> */}
 				<SectionSelection />
 			</Content>
 		</Layout>

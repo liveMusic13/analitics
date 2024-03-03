@@ -25,7 +25,7 @@ const AdditionalParameters = () => {
 				<div className={styles.block__options}>
 					<Checkbox id='post' text='Посты' />
 					<Checkbox id='repost' text='Репосты' />
-					<Checkbox id='smi' text='СМИ' />
+					<Checkbox id='SMI' text='СМИ' />
 				</div>
 			)}
 		</div>

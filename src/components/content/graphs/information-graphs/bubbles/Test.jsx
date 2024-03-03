@@ -133,7 +133,7 @@ const Test = ({ isViewSource }) => {
 			</TransformWrapper>
 			<div
 				className={styles.block__sources}
-				style={isViewSource ? { opacity: 1 } : { opacity: 0 }}
+				style={isViewSource ? { display: 'flex' } : { display: 'none' }}
 			>
 				{informationGraphData.values.map(author => {
 					return <p key={Math.random()}>{author.author.fullname}</p>;

@@ -4,11 +4,14 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import styles from './InformationGraphs.module.scss';
 import BarInformation from './bar-information/BarInformation';
+import Test from './bubbles/Test';
+import ScatterChart from './scatter-chart/ScatterChart';
 
 const InformationGraphs = () => {
 	const [activeButton, setActiveButton] = useState('dissemination');
 	const [isViewSource, setIsViewSource] = useState(true);
 	const informationGraphData = useSelector(state => state.informationGraphData);
+	const [isBar, setIsBar] = useState(false);
 
 	const saveDiagramAsPDF = () => {
 		const input = document.getElementById('graph-for-download'); // замените 'myDiagram' на id вашего элемента с диаграммой
@@ -36,6 +39,16 @@ const InformationGraphs = () => {
 			pdf.save('download.pdf');
 		});
 	};
+
+	// useEffect(() => {
+	// 	if (activeButton === 'firstTwenty') {
+	// 		setIsBar(true);
+	// 	} else if (activeButton === 'dissemination') {
+
+	// 	} else {
+	// 		setIsBar(false);
+	// 	}
+	// }, [activeButton]);
 
 	return (
 		<div className={styles.block__graph}>
@@ -87,8 +100,13 @@ const InformationGraphs = () => {
 			</div>
 			<div className={styles.container__graph} id='graph-for-download'>
 				{/* <Bubbles /> */}
-				{/* <Test isViewSource={isViewSource} /> */}
-				<BarInformation />
+				{activeButton === 'firstTwenty' ? (
+					<BarInformation isViewSource={isViewSource} />
+				) : activeButton === 'dissemination' ? (
+					<Test isViewSource={isViewSource} />
+				) : (
+					<ScatterChart isViewSource={isViewSource} />
+				)}
 			</div>
 		</div>
 	);

@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import NotFound from '../components/screens/not-found/NotFound';
 import { routes } from './routes.data';
 
 const Router = () => {
@@ -14,6 +15,7 @@ const Router = () => {
 						/>
 					);
 				})}
+				<Route element={<NotFound />} path='*' />
 			</Routes>
 		</BrowserRouter>
 	);
