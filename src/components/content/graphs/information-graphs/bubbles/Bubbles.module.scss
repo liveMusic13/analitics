@@ -2,7 +2,7 @@
 @import '../../../../../assets/styles/functions';
 
 .chartdiv {
-	width: 63vw;
+	width: 84vw;
 	height: 65vh;
 }
 .block__sources {
@@ -16,6 +16,10 @@
 	gap: adapt(8px, 1440px);
 	overflow-y: auto;
 	height: 95%;
+	position: absolute;
+	top: 0;
+	right: 0;
+	background-color: $color_seven;
 
 	&::-webkit-scrollbar {
 		width: adapt(10px, 1440px);

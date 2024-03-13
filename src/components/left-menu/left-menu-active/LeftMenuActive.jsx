@@ -74,14 +74,14 @@ const LeftMenuActive = () => {
 										key={itemMenu.id}
 										to={itemMenu.path}
 										className={
-											itemMenu.id === 0 && pathname === '/user-tonality'
+											pathname === itemMenu.path
 												? styles.menu__item_active
 												: styles.menu__item
 										}
 									>
 										<img
 											src={
-												itemMenu.id === 0 && pathname === '/user-tonality'
+												pathname === itemMenu.path
 													? itemMenu.src_active
 													: itemMenu.src
 											}

@@ -1,10 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-	index: 0,
-	min_data: '01.01.2000',
-	max_data: '01.01.2001',
+	//TODO: НАДО СДЕЛАТЬ ДОБАВЛЕНИЕ ДАТЫ ПРИ ИНИЦИАЛИЗАЦИИ, ЧТОБЫ НЕ ВЫДАВАЛО ОШИБКУ
+	index: 1,
+	min_data: 1706745600,
+	max_data: 1707177600,
 	query_str: '',
+	post: false,
+	repost: false,
+	SMI: false,
 };
 
 export const dataForRequest = createSlice({
@@ -22,6 +26,9 @@ export const dataForRequest = createSlice({
 		},
 		addQueryStr: (state, { payload }) => {
 			return { ...state, query_str: payload };
+		},
+		currentCheckBox: (state, { payload }) => {
+			return { ...state, [payload]: !state[payload] };
 		},
 	},
 });

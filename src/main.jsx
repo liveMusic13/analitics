@@ -7,11 +7,11 @@ import Router from './routes/Router';
 import { store } from './store/store.js';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-	<React.StrictMode>
-		<AuthProvider>
-			<Provider store={store}>
-				<Router />
-			</Provider>
-		</AuthProvider>
-	</React.StrictMode>,
+	// <React.StrictMode>
+	<AuthProvider>
+		<Provider store={store}>
+			<Router />
+		</Provider>
+	</AuthProvider>,
+	// </React.StrictMode>,
 );

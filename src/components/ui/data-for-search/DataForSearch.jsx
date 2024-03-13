@@ -27,13 +27,13 @@ const DataForSearch = ({ choiceData }) => {
 			</div>
 			{isViewOptions && (
 				<div className={styles.block__options}>
-					{dataUser.map((option, index) => {
+					{dataUser.map(option => {
 						return (
 							<p
 								className={styles.option}
 								key={option.file}
 								onClick={() => {
-									dispatch(dataForRequestActions.addIndex(index));
+									dispatch(dataForRequestActions.addIndex(option.index_number));
 									setViewOptions(!isViewOptions);
 								}}
 							>

@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import { TransformComponent, TransformWrapper } from 'react-zoom-pan-pinch';
 import styles from './Bubbles.module.scss';
 
-const Bubbles = () => {
+const Bubbles = ({ isViewSource }) => {
 	const [chart, setChart] = useState(null);
 	const informationGraphData = useSelector(state => state.informationGraphData);
 
@@ -28,27 +28,17 @@ const Bubbles = () => {
 			);
 
 			const series = container.children.push(
-				am5hierarchy.ForceDirected.new(root, {
+				am5hierarchy.Tree.new(root, {
+					singleBranchOnly: false,
 					downDepth: 1,
-					initialDepth: 2,
-					topDepth: 1,
+					initialDepth: 5,
+					topDepth: 0,
 					valueField: 'value',
 					categoryField: 'name',
 					childDataField: 'children',
+					orientation: 'vertical',
 				}),
 			);
-
-			series.outerCircles.template.states.create('disabled', {
-				fillOpacity: 0.5,
-				strokeOpacity: 0,
-				strokeDasharray: 0,
-			});
-
-			series.outerCircles.template.states.create('hoverDisabled', {
-				fillOpacity: 0.5,
-				strokeOpacity: 0,
-				strokeDasharray: 0,
-			});
 
 			series.nodes.template.events.on('dblclick', function (ev) {
 				var data = ev.target.dataItem.dataContext;
@@ -56,72 +46,29 @@ const Bubbles = () => {
 				window.open(url);
 			});
 
-			// series.data.setAll([
-			// 	{
-			// 		name: 'Root',
-			// 		value: 0,
-			// 		children: informationGraphData.values.map(author => {
-			// 			return {
-			// 				name: author.author.fullname,
-			// 				url: author.author.url,
-			// 				type: 'values',
-			// 				...(author.reposts.length === 0
-			// 					? { value: author.author.audienceCount }
-			// 					: {
-			// 							children: author.reposts.map(repost => ({
-			// 								name: repost.fullname,
-			// 								value: repost.audienceCount,
-			// 								url: repost.url,
-			// 								type: 'reposts'
-			// 							})),
-			// 						}),
-			// 			};
-			// 		}),
-			// 	},
-			// ]);
-
-			let data = informationGraphData.values;
-			let rootData = {
-				name: 'Root',
-				value: 0,
-				children: [],
-			};
-
-			for (let i = 0; i < data.length; i++) {
-				let node = {
-					name: data[i].author.fullname,
-					url: data[i].author.url,
-					type: 'values',
-					value: data[i].reposts.length === 0 ? 1 : data[i].reposts.length,
-					children: [],
-				};
-
-				if (data[i].reposts && data[i].reposts.length !== 0) {
-					node.children = data[i].reposts.map(repost => ({
-						name: repost.fullname,
-						value: repost.audienceCount,
-						url: repost.url,
-						type: 'reposts',
-					}));
-				}
-
-				if (i === 0) {
-					rootData.children.push(node);
-				} else {
-					let parent = rootData;
-					while (
-						parent.children &&
-						parent.children.length !== 0 &&
-						parent.children[0].type === 'values'
-					) {
-						parent = parent.children[0];
-					}
-					parent.children.push(node);
-				}
-			}
-
-			series.data.setAll([rootData]);
-
+			series.data.setAll([
+				{
+					name: 'Root',
+					value: 0,
+					children: informationGraphData.values.map(author => {
+						return {
+							name: author.author.fullname,
+							url: author.author.url,
+							type: 'values',
+							...(author.reposts.length === 0
+								? { value: author.author.audienceCount }
+								: {
+										children: author.reposts.map(repost => ({
+											name: repost.fullname,
+											value: repost.audienceCount,
+											url: repost.url,
+											type: 'reposts',
+										})),
+									}),
+						};
+					}),
+				},
+			]);
 			series.set('selectedDataItem', series.dataItems[0]);
 
 			setChart(root);
@@ -135,11 +82,21 @@ const Bubbles = () => {
 	}, []);
 
 	return (
-		<TransformWrapper>
-			<TransformComponent>
-				<div id='chartdiv' className={styles.chartdiv}></div>
-			</TransformComponent>
-		</TransformWrapper>
+		<>
+			<TransformWrapper>
+				<TransformComponent>
+					<div id='chartdiv' className={styles.chartdiv}></div>
+				</TransformComponent>
+			</TransformWrapper>
+			<div
+				className={styles.block__sources}
+				style={isViewSource ? { display: 'flex' } : { display: 'none' }}
+			>
+				{informationGraphData.values.map(author => {
+					return <p key={Math.random()}>{author.author.fullname}</p>;
+				})}
+			</div>
+		</>
 	);
 };
 

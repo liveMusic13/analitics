@@ -11,6 +11,8 @@ import Button from '../button/Button';
 import './CalendarStyle.scss';
 import styles from './CustomCalendar.module.scss';
 
+//TODO: РАЗОБРАТЬСЯ ПОЧЕМУ ВЫДАЕТ ОШИБКУ ПРИ ОБНОВЛЕНИИ
+
 const CustomCalendar = () => {
 	const dataForRequest = useSelector(state => state.dataForRequest);
 	const dataUser = useSelector(state => state.dataUser);
@@ -35,7 +37,19 @@ const CustomCalendar = () => {
 				convertDateToTimestamp(date[1].toLocaleDateString()),
 			),
 		);
+
+		console.log(
+			dataForRequestAction.addMaxDate(
+				convertDateToTimestamp(date[1].toLocaleDateString()),
+			),
+		);
 	};
+
+	const findTargetFile = dataUser.find(
+		file => file.index_number === dataForRequest.index,
+	); //HELP: Находим файл по index_number
+	const minDate = findTargetFile?.min_data; //HELP: Получаем мин и макс дату
+	const maxDate = findTargetFile?.max_data;
 
 	return (
 		<div className={styles.wrapper_calendar}>
@@ -46,14 +60,13 @@ const CustomCalendar = () => {
 				<div className={styles.block__description}>
 					<h2>Период</h2>
 					<p>
-						{convertDateFormat(
-							convertTimestamp(dataUser[dataForRequest.index].min_data),
-						)}{' '}
+						{minDate !== undefined
+							? convertDateFormat(convertTimestamp(minDate)) //HELP: Переводим дату из Timestamp в обычный формат, а потом преобразуем в формат гг.мм.дд
+							: 'no data'}{' '}
 						-{' '}
-						{convertDateFormat(
-							convertTimestamp(dataUser[dataForRequest.index].max_data),
-						)}
-						{}
+						{maxDate !== undefined
+							? convertDateFormat(convertTimestamp(maxDate))
+							: 'no data'}
 					</p>
 				</div>
 				<img
@@ -68,20 +81,8 @@ const CustomCalendar = () => {
 						onChange={onChange}
 						value={dateRange}
 						selectRange={true}
-						minDate={
-							new Date(
-								convertDateFormat(
-									convertTimestamp(dataUser[dataForRequest.index].min_data),
-								),
-							)
-						}
-						maxDate={
-							new Date(
-								convertDateFormat(
-									convertTimestamp(dataUser[dataForRequest.index].max_data),
-								),
-							)
-						}
+						minDate={new Date(convertDateFormat(convertTimestamp(minDate)))}
+						maxDate={new Date(convertDateFormat(convertTimestamp(maxDate)))}
 					/>
 					<div className={styles.block__preview}>
 						<p className={styles.preview__date}>

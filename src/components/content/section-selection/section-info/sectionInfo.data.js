@@ -53,4 +53,10 @@ export const data = [
 		text: 'Text classification',
 		path: '/user-tonality',
 	},
+	{
+		id: 9,
+		src: './images/icons/menu/table.png',
+		text: 'Topic analysis',
+		path: '/topic-analysis',
+	},
 ];

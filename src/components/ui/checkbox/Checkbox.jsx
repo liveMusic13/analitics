@@ -1,18 +1,20 @@
 import { useState } from 'react';
 import styles from './Checkbox.module.scss';
+import { useDispatch, useSelector } from 'react-redux';
+import { actions as dataForRequestAction } from '../../../store/data-for-request/dataForRequest.slice.js';
 
 const Checkbox = ({ id, text }) => {
-	const [value, setValue] = useState(false);
-	console.log(value);
+	const dispatch = useDispatch();
+	const value = useSelector(state => state.dataForRequest);
 
 	return (
 		<div className={styles.block__option}>
 			<input
 				type='checkbox'
 				id={id}
-				value={value}
+				value={value[id]}
 				className={styles.check}
-				onChange={() => setValue(!value)}
+				onChange={() => dispatch(dataForRequestAction.currentCheckBox(id))}
 			/>
 			<label htmlFor={id} className={styles.option}>
 				{text}
