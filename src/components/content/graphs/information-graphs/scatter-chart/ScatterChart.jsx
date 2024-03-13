@@ -1,62 +1,33 @@
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import { useRef } from 'react';
+import { useSelector } from 'react-redux';
+import { generateColorsForObjects } from '../../../../../utils/generateColors';
 import styles from './ScatterChart.module.scss';
 
 const ScatterChart = ({ isViewSource }) => {
 	const chartComponent = useRef(null);
-
-	console.log(Highcharts);
+	const informationGraphData = useSelector(state => state.informationGraphData);
 
 	Highcharts.setOptions({
-		colors: [
-			'rgba(5,141,199,0.5)',
-			'rgba(80,180,50,0.5)',
-			'rgba(237,86,27,0.5)',
-		],
+		colors: generateColorsForObjects(informationGraphData.values), //HELP: ГЕНЕРИРУЮ МАССИВ СЛУЧАЙНЫХ ЦВЕТОВ
 	});
 
-	const data = [
-		{
-			name: 'Basketball',
-			id: 'basketball',
-			marker: {
-				symbol: 'circle',
-			},
-		},
-		{
-			name: 'Triathlon',
-			id: 'triathlon',
-			marker: {
-				symbol: 'circle',
-			},
-		},
-		{
-			name: 'Volleyball',
-			id: 'volleyball',
-			marker: {
-				symbol: 'circle',
-			},
-		},
-	];
-
-	function getRandomInt(min, max) {
-		min = Math.ceil(min);
-		max = Math.floor(max);
-		return Math.floor(Math.random() * (max - min + 1)) + min;
-	}
-
-	data.forEach(s => {
-		const data = [];
-		for (let i = 0; i < 60; i++) {
-			// Добавляем 10 случайных пар значений для каждого вида спорта
-			const date = new Date(); // Получаем текущую дату
-			date.setHours(getRandomInt(0, 23)); // Устанавливаем случайный час
-			date.setMinutes(getRandomInt(0, 59)); // Устанавливаем случайную минуту
-			const weight = getRandomInt(50, 100); // Случайный вес в диапазоне от 50 до 100
-			data.push([date.getTime(), weight]); // Добавляем время в миллисекундах и вес
-		}
-		s.data = data;
+	const newData = informationGraphData?.values?.map(author => {
+		return {
+			name: author.author.fullname,
+			id: author.author.fullname,
+			marker: { symbol: 'circle' },
+			url: author.author.url,
+			data: [
+				{
+					x: Number(author.author.timeCreate),
+					y: author.author.audienceCount,
+					url: author.author.url, //HELP: ЗАКИДЫВАЕМ URL И NAME В DATA ЧТОБЫ МОЖНО БЫЛО ПРИ КЛИКЕ ПЕРЕЙТИ ПО ССЫЛКЕ И ПРИ HOVER УВИДЕТЬ ИНФУ
+					name: author.author.fullname,
+				},
+			],
+		};
 	});
 
 	const options = {
@@ -68,20 +39,16 @@ const ScatterChart = ({ isViewSource }) => {
 			zoomType: 'xy',
 		},
 		title: {
-			text: 'Динамика по авторам',
-			align: 'center',
+			text: null,
 		},
 		xAxis: {
 			type: 'datetime',
 			title: {
 				text: 'Дата / время',
 			},
-			// labels: {
-			// 	format: '{value}',
-			// },
 			labels: {
 				formatter: function () {
-					return Highcharts.dateFormat('%e %b, %H:%M', this.value); // Форматируем метки оси X
+					return Highcharts.dateFormat('%a %e %b %Y, %H:%M', this.value * 1000); // Форматируем метки оси X
 				},
 			},
 			startOnTick: true,
@@ -100,6 +67,16 @@ const ScatterChart = ({ isViewSource }) => {
 			enabled: true,
 		},
 		plotOptions: {
+			series: {
+				cursor: 'pointer',
+				point: {
+					events: {
+						click: function () {
+							window.open(this.options.url, '_blank');
+						},
+					},
+				},
+			},
 			scatter: {
 				marker: {
 					radius: 2.5,
@@ -124,9 +101,14 @@ const ScatterChart = ({ isViewSource }) => {
 			},
 		},
 		tooltip: {
-			pointFormat: 'Height: {point.x} m <br/> Weight: {point.y} kg',
+			formatter: function () {
+				const url = this.point.options.url;
+				const yDate = this.point.y;
+				const name = this.point.options.name;
+				return `Источник: ${url}<br/> Автор: ${name}<br/> Аудитория: ${yDate}`;
+			},
 		},
-		series: data,
+		series: newData,
 	};
 
 	return (
@@ -141,10 +123,9 @@ const ScatterChart = ({ isViewSource }) => {
 				className={styles.block__sources}
 				style={isViewSource ? { display: 'flex' } : { display: 'none' }}
 			>
-				{/* {informationGraphData.values.map(author => {
+				{informationGraphData?.values?.map(author => {
 					return <p key={Math.random()}>{author.author.fullname}</p>;
-				})} */}
-				<p>sdfsdf</p>
+				})}
 			</div>
 		</>
 	);

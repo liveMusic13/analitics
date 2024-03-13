@@ -62,6 +62,13 @@ export const menuPageData = [
 		src_active: '../images/icons/menu/text_classification_active.svg',
 		path: '/none',
 	},
+	{
+		id: 9,
+		title: 'Topic analysis',
+		src: '../images/icons/menu/table.png',
+		src_active: '../images/icons/menu/table.png',
+		path: '/topic-analysis',
+	},
 ];
 
 export const menuSettings = [

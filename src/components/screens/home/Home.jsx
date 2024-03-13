@@ -27,24 +27,29 @@ const Home = () => {
 		if (isAuth) getDataUser();
 	}, [isAuth]);
 
-	// const test = async () => {
-	// 	try {
-	// 		const responce = await $axios.get(
-	// 			'/information_graph?index=2&min_date=1705266000&max_date=1705846629&query_str=data',
-	// 			// '/information_graph?index=2&min_date=1705266000&max_date=1705846629&query_str=data',
-	// 		);
-	// 		console.log(responce);
-	// 	} catch (error) {
-	// 		console.log(error);
-	// 	}
-	// };
+	const test = async () => {
+		try {
+			const responce = await $axios.get(
+				'/information_graph?index=2&min_date=1705266000&max_date=1705846629&query_str=data',
+				// '/information_graph?index=2&min_date=1705266000&max_date=1705846629&query_str=data',
+			);
+			// const responce = await $axios.post('/tonality_landscape', {
+			// 	index: 1,
+			// 	min_date: 1706760780,
+			// 	max_date: 1707218189,
+			// });
+			console.log(responce);
+		} catch (error) {
+			console.log(error);
+		}
+	};
 
 	return (
 		<Layout justifyContent='space-between'>
 			<LeftMenu />
 			{isActiveMenu.isActiveMenu && <LeftMenuActive />}
 			<Content>
-				{/* <button onClick={test}>test</button> */}
+				<button onClick={test}>test</button>
 				<SectionSelection />
 			</Content>
 		</Layout>

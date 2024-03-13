@@ -37,6 +37,12 @@ const CustomCalendar = () => {
 				convertDateToTimestamp(date[1].toLocaleDateString()),
 			),
 		);
+
+		console.log(
+			dataForRequestAction.addMaxDate(
+				convertDateToTimestamp(date[1].toLocaleDateString()),
+			),
+		);
 	};
 
 	const findTargetFile = dataUser.find(

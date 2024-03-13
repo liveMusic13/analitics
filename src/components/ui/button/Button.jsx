@@ -17,7 +17,7 @@ const Button = ({ children, type, buttonFor, setViewCalendar, navigate }) => {
 				>
 					{children}
 				</button>
-			) : buttonFor === 'request-graf' ? (
+			) : buttonFor === 'request-graf' || buttonFor === 'topic-analysis' ? (
 				<button
 					className={styles.button}
 					type={type}
