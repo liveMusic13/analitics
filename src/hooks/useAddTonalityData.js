@@ -19,7 +19,7 @@ export const useAddTonalityData = () => {
 	}, [errorData]);
 
 	const addTonality = async data => {
-		const response = await getGraph.userTonality(data, setErrorData);
+		const response = await getGraph.userTonality(data, setErrorData, dispatch);
 
 		let oldState = null;
 		let unsubscribe = store.subscribe(() => {

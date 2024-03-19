@@ -1,19 +1,44 @@
 import { $axios } from '../api';
+import { actions as loadStatusAction } from '../store/load-status/loadStatus.slice';
 
 export const getGraph = {
-	userTonality: async (data, setErrorData) => {
+	userTonality: async (data, setErrorData, dispatch) => {
 		try {
-			const responce = await $axios.post('/tonality_landscape', data);
+			dispatch(loadStatusAction.isLoad(true));
+
+			const responce = await $axios.get(
+				`/tonality_landscape?index=${data.index}&min_date=${data.min_data}&max_date=${data.max_data}`,
+			);
 
 			console.log(responce.data);
 			return responce.data;
 		} catch (error) {
 			console.log(error);
 			setErrorData(error);
+		} finally {
+			dispatch(loadStatusAction.isLoad(false));
 		}
 	},
-	getInformation: async (data, setErrorData) => {
+	themes: async (data, setErrorData, dispatch) => {
 		try {
+			dispatch(loadStatusAction.isLoad(true));
+
+			const responce = await $axios.get(
+				`/themes?index=${data.index}&min_date=${data.min_data}&max_date=${data.max_data}`,
+			);
+
+			console.log(responce.data);
+			return responce.data;
+		} catch (error) {
+			console.log(error);
+			setErrorData(error);
+		} finally {
+			dispatch(loadStatusAction.isLoad(false));
+		}
+	},
+	getInformation: async (data, setErrorData, dispatch) => {
+		try {
+			dispatch(loadStatusAction.isLoad(true));
 			// const responce = await $axios.get(
 			// 	`/information_graph?index=${data.index}&min_date=${data.min_data}&max_date=${data.max_data}`,
 			// );
@@ -44,6 +69,8 @@ export const getGraph = {
 		} catch (error) {
 			console.log(error);
 			setErrorData(error);
+		} finally {
+			dispatch(loadStatusAction.isLoad(false));
 		}
 	},
 };
