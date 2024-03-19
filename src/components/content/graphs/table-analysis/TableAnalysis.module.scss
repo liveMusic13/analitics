@@ -8,21 +8,12 @@
 	display: flex;
 	flex-direction: column;
 
-	> .title__h1 {
-		margin-top: adapt(20px, 1440px);
-		font-size: 2rem;
-		font-weight: 500;
-		align-self: center;
-		justify-self: center;
-	}
-
 	> .table__header {
 		margin: adapt(30px, 1440px);
 		margin-bottom: 0px;
 
 		> .header__topBlock {
 			display: flex;
-			justify-content: center;
 			gap: adapt(100px, 1440px);
 			margin-bottom: adapt(20px, 1440px);
 
@@ -61,7 +52,7 @@
 			> .block__select {
 				display: flex;
 				align-items: center;
-				font-size: 1.2rem;
+				font-size: 1rem;
 
 				> span {
 					margin-right: adapt(20px, 1440px);
@@ -83,7 +74,7 @@
 			justify-content: space-between;
 
 			> label {
-				font-size: 1.2rem;
+				font-size: 1rem;
 				display: flex;
 				align-items: center;
 
@@ -111,7 +102,7 @@
 		padding: adapt(15px, 1440px);
 		// border-radius: adapt(20px, 1440px);
 		// box-shadow: 0px 0px adapt(30px, 1440px) $color_six;
-		align-self: center;
+
 		width: 100%;
 
 		> thead {
@@ -119,7 +110,7 @@
 				> th {
 					border-top-left-radius: adapt(15px, 1440px);
 					border-top-right-radius: adapt(15px, 1440px);
-					font-size: 1.5rem;
+					font-size: 1.2rem;
 					padding: adapt(10px, 1440px);
 
 					&:hover {
@@ -139,7 +130,6 @@
 				> td {
 					padding: adapt(10px, 1440px);
 					font-size: 1rem;
-					text-align: center;
 				}
 
 				&:nth-child(2n) {

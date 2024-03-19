@@ -77,7 +77,6 @@ const TableAnalysis = () => {
 
 	return (
 		<div className={styles.wrapper_table}>
-			<h1 className={styles.title__h1}>Таблица анализа тематик</h1>
 			<div className={styles.table__header}>
 				<div className={styles.header__topBlock}>
 					<div className={styles.block__globalFilter}>
