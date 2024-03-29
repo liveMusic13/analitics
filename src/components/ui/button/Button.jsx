@@ -1,12 +1,14 @@
 import { useAddTonalityData } from '../../../hooks/useAddTonalityData';
 import { useGetInformationGraf } from '../../../hooks/useGetInformationGraf.js';
 import { useThemesRequest } from '../../../hooks/useThemesRequest.js';
+import { useVoiceRequest } from '../../../hooks/useVoiceRequest.js';
 import styles from './Button.module.scss';
 
 const Button = ({ children, type, buttonFor, setViewCalendar, navigate }) => {
 	const { addTonality, dataForRequest } = useAddTonalityData();
 	const { addInformationGraf } = useGetInformationGraf();
 	const { themesRequest } = useThemesRequest();
+	const { voiceRequest } = useVoiceRequest();
 
 	return (
 		<>
@@ -78,6 +80,26 @@ const Button = ({ children, type, buttonFor, setViewCalendar, navigate }) => {
 					className={styles.button}
 					type={type}
 					onClick={() => navigate('/')}
+				>
+					{children}
+				</button>
+			) : buttonFor === 'voice-graf' ? (
+				<button
+					className={styles.button}
+					type={type}
+					style={{
+						width: 'calc(144 / 1440 * 100vw)',
+						height: 'calc(56 / 1440 * 100vw)',
+					}}
+					onClick={() => {
+						console.log('proshel');
+						voiceRequest({
+							index: dataForRequest.index,
+							min_data: dataForRequest.min_data,
+							max_data: dataForRequest.max_data,
+							query_str: dataForRequest.query_str,
+						});
+					}}
 				>
 					{children}
 				</button>
