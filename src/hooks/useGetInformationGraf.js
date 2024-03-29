@@ -16,7 +16,11 @@ export const useGetInformationGraf = () => {
 	}, [errorData]);
 
 	const addInformationGraf = async data => {
-		const responce = await getGraph.getInformation(data, setErrorData);
+		const responce = await getGraph.getInformation(
+			data,
+			setErrorData,
+			dispatch,
+		);
 
 		dispatch(informationGrafDataAction.addInformationGraphData(responce));
 		dispatch(isGraphAction.activeGraph(''));

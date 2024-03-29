@@ -1,10 +1,12 @@
 import { useAddTonalityData } from '../../../hooks/useAddTonalityData';
 import { useGetInformationGraf } from '../../../hooks/useGetInformationGraf.js';
+import { useThemesRequest } from '../../../hooks/useThemesRequest.js';
 import styles from './Button.module.scss';
 
 const Button = ({ children, type, buttonFor, setViewCalendar, navigate }) => {
 	const { addTonality, dataForRequest } = useAddTonalityData();
 	const { addInformationGraf } = useGetInformationGraf();
+	const { themesRequest } = useThemesRequest();
 
 	return (
 		<>
@@ -25,13 +27,21 @@ const Button = ({ children, type, buttonFor, setViewCalendar, navigate }) => {
 						width: 'calc(144 / 1440 * 100vw)',
 						height: 'calc(56 / 1440 * 100vw)',
 					}}
-					onClick={() =>
-						addTonality({
-							index: dataForRequest.index,
-							min_data: dataForRequest.min_data,
-							max_data: dataForRequest.max_data,
-						})
-					}
+					onClick={() => {
+						if (buttonFor === 'topic-analysis') {
+							themesRequest({
+								index: dataForRequest.index,
+								min_data: dataForRequest.min_data,
+								max_data: dataForRequest.max_data,
+							});
+						} else {
+							addTonality({
+								index: dataForRequest.index,
+								min_data: dataForRequest.min_data,
+								max_data: dataForRequest.max_data,
+							});
+						}
+					}}
 				>
 					{children}
 				</button>

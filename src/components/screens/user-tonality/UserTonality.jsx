@@ -10,11 +10,13 @@ import LeftMenuActive from '../../left-menu/left-menu-active/LeftMenuActive';
 import Button from '../../ui/button/Button';
 import CustomCalendar from '../../ui/custom-calendar/CustomCalendar';
 import DataForSearch from '../../ui/data-for-search/DataForSearch';
+import Loader from '../../ui/loader/Loader';
 import styles from './UserTonality.module.scss';
 
 const UserTonality = () => {
 	const { pathname } = useLocation();
 	const isActiveMenu = useSelector(store => store.isActiveMenu);
+	const { isLoader } = useSelector(state => state.loadStatus);
 	const userTonalityData = useSelector(store => store.userTonalityData);
 	// const dataUser = useSelector(state => state.dataUser);
 	const isGraph = useSelector(state => state.isGraph);
@@ -22,6 +24,7 @@ const UserTonality = () => {
 
 	return (
 		<Layout>
+			{isLoader && <div className={styles.background__loader}></div>}
 			{pathname !== '/' && isActiveMenu.isActiveMenu ? (
 				<LeftMenuActive />
 			) : (
@@ -45,6 +48,7 @@ const UserTonality = () => {
 						Запуск
 					</Button>
 				</div>
+				{isLoader && <Loader />}
 				{isGraph.isGraph ? (
 					<TonalityGraphs />
 				) : (

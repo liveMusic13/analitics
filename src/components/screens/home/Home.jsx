@@ -29,16 +29,21 @@ const Home = () => {
 
 	const test = async () => {
 		try {
-			const responce = await $axios.get(
-				'/information_graph?index=2&min_date=1705266000&max_date=1705846629&query_str=data',
-				// '/information_graph?index=2&min_date=1705266000&max_date=1705846629&query_str=data',
-			);
-			// const responce = await $axios.post('/tonality_landscape', {
+			// const response = await $axios.get(
+			// 	'/information_graph?index=2&min_date=1705266000&max_date=1705846629&query_str=data',
+			// 	// '/information_graph?index=2&min_date=1705266000&max_date=1705846629&query_str=data',
+			// );
+			// const response = await $axios.post('/tonality_landscape', {
 			// 	index: 1,
 			// 	min_date: 1706760780,
 			// 	max_date: 1707218189,
 			// });
-			console.log(responce);
+			const response = await $axios.get(
+				'/tonality_landscape?index=1&min_date=1706760780&max_date=1707218189',
+				// '/information_graph?index=2&min_date=1705266000&max_date=1705846629&query_str=data',
+			);
+
+			console.log(response);
 		} catch (error) {
 			console.log(error);
 		}

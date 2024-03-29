@@ -11,8 +11,6 @@ import Button from '../button/Button';
 import './CalendarStyle.scss';
 import styles from './CustomCalendar.module.scss';
 
-//TODO: РАЗОБРАТЬСЯ ПОЧЕМУ ВЫДАЕТ ОШИБКУ ПРИ ОБНОВЛЕНИИ
-
 const CustomCalendar = () => {
 	const dataForRequest = useSelector(state => state.dataForRequest);
 	const dataUser = useSelector(state => state.dataUser);
