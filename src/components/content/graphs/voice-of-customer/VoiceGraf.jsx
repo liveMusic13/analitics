@@ -1,6 +1,8 @@
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { concatData } from '../../../../utils/convertFields';
 import styles from './VoiceGraf.module.scss';
 import RadialBar from './radial-bar/RadialBar';
 import Sankey from './sankey/Sankey';
@@ -9,6 +11,8 @@ const VoiceGraf = () => {
 	const [activeButton, setActiveButton] = useState('graf_one');
 	const [isViewRadial, setIsViewRadial] = useState(true);
 	const [isViewSource, setIsViewSource] = useState(true);
+
+	const { data } = useSelector(state => state.dataVoice);
 
 	const handleClick = button => {
 		setActiveButton(button);
@@ -32,6 +36,8 @@ const VoiceGraf = () => {
 			pdf.save('download.pdf');
 		});
 	};
+
+	concatData(data);
 
 	return (
 		<div className={styles.block__graph}>

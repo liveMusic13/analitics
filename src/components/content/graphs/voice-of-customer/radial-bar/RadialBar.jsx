@@ -2,9 +2,12 @@ import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import HighchartsMore from 'highcharts/highcharts-more';
 import HighchartsSolidGauge from 'highcharts/modules/solid-gauge';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { TransformComponent, TransformWrapper } from 'react-zoom-pan-pinch';
 import {
+	concatData,
+	getCategoriesName,
 	getCategoryData,
 	getSeriesData,
 } from '../../../../../utils/convertFields';
@@ -16,6 +19,15 @@ HighchartsSolidGauge(Highcharts);
 
 const RadialBar = ({ isViewSource }) => {
 	const { data } = useSelector(state => state.dataVoice);
+	const [resultData, setResultData] = useState([]); //HELP: ДАННЫЕ КОНКРЕТНОГО ОБЪЕКТА И ЕГО МАССИВА
+	const [indexData, setIndexData] = useState(-1); //HELP: ИНДЕКС ДЛЯ ОТОБРАЖЕНИЯ ДАННЫХ КОНКРЕТНОГО ОБЪЕКТА
+	const [isViewGraf, setIsViewGraf] = useState(true);
+
+	useEffect(() => {
+		if (indexData !== -1) {
+			setResultData(data[indexData].sunkey_data);
+		}
+	}, [indexData]);
 
 	Highcharts.setOptions({
 		colors: ['rgb(255, 191, 0)', 'rgb(255, 0, 0)', 'rgb(128, 255, 0)'], //HELP: ГЕНЕРИРУЮ МАССИВ СЛУЧАЙНЫХ ЦВЕТОВ
@@ -58,7 +70,10 @@ const RadialBar = ({ isViewSource }) => {
 			},
 			lineWidth: 0,
 			gridLineWidth: 0,
-			categories: getCategoryData(data.second_graph_data),
+			// categories: getCategoryData(data.second_graph_data.sunkey_data),
+			categories: getCategoryData(
+				indexData === -1 ? concatData(data) : resultData,
+			), //HELP:ЕСЛИ СТОИТ 0, ЗНАЧИТ ОБЪЕДИНЯЕМ ВСЕ МАССИВЫ ДАННЫХ ЧЕРЕЗ ФУНКЦИЮ concatData И ПОДСТАВЛЯЕМ РЕЗУЛЬТАТ. ИНАЧЕ ОТДАЕМ КОНКРЕТНЫЙ ОБЪЕКТ И ЕГО МАССИВ С ДАННЫМИ
 		},
 		yAxis: {
 			lineWidth: 0,
@@ -77,33 +92,79 @@ const RadialBar = ({ isViewSource }) => {
 				borderRadius: '50%',
 			},
 		},
-		series: getSeriesData(data.second_graph_data),
+		// series: getSeriesData(data.second_graph_data.sunkey_data),
+		series: getSeriesData(indexData === -1 ? concatData(data) : resultData),
 	};
 
 	return (
 		<>
-			<TransformWrapper>
-				<TransformComponent>
-					<HighchartsReact
-						highcharts={Highcharts}
-						options={options}
-						containerProps={{ style: { width: '100%', height: '100%' } }}
-					/>
-				</TransformComponent>
-			</TransformWrapper>
+			{isViewGraf && (
+				<>
+					<div className={styles.wrapper_graf}>
+						<div className={styles.block__categories}>
+							<button
+								className={indexData === -1 ? styles.name_active : styles.name}
+								onClick={() => {
+									setIndexData(-1);
+									setIsViewGraf(false);
 
-			<div
-				className={styles.block__sources}
-				style={isViewSource ? { display: 'flex' } : { display: 'none' }}
-			>
-				{[
-					...new Set(
-						data.second_graph_data.map(item => (
-							<p key={Math.random()}>{item.hub}</p>
-						)),
-					),
-				]}
-			</div>
+									const timeoutId = setTimeout(() => {
+										setIsViewGraf(true);
+									}, 200);
+									return () => clearTimeout(timeoutId);
+								}}
+							>
+								Все
+							</button>
+							{getCategoriesName(data).map((name, index) => (
+								<button
+									key={Math.random()}
+									className={
+										indexData === index ? styles.name_active : styles.name
+									}
+									onClick={() => {
+										setIndexData(index);
+										setIsViewGraf(false);
+
+										const timeoutId = setTimeout(() => {
+											setIsViewGraf(true);
+										}, 1000);
+										return () => clearTimeout(timeoutId);
+									}}
+								>
+									{name}
+								</button>
+							))}
+						</div>
+						<TransformWrapper>
+							<TransformComponent>
+								<HighchartsReact
+									highcharts={Highcharts}
+									options={options}
+									containerProps={{ style: { width: '100%', height: '100%' } }}
+								/>
+							</TransformComponent>
+						</TransformWrapper>
+					</div>
+
+					<div
+						className={styles.block__sources}
+						style={isViewSource ? { display: 'flex' } : { display: 'none' }}
+					>
+						{[
+							...new Set(
+								indexData === -1
+									? concatData(data).map(item => (
+											<p key={Math.random()}>{item.hub}</p>
+										))
+									: resultData.map(item => (
+											<p key={Math.random()}>{item.hub}</p>
+										)),
+							),
+						]}
+					</div>
+				</>
+			)}
 		</>
 	);
 };

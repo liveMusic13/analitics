@@ -1,6 +1,47 @@
 @import '../../../../../assets/styles/variables';
 @import '../../../../../assets/styles/functions';
 
+.wrapper_graf {
+	display: flex;
+	gap: adapt(20px, 1440px);
+	width: 100%;
+
+	> .block__categories {
+		padding: adapt(20px, 1440px) 0px;
+		display: flex;
+		flex-direction: column;
+		gap: adapt(20px, 1440px);
+
+		> .name {
+			text-transform: capitalize;
+			padding: adapt(10px, 1440px);
+			border-radius: adapt(10px, 1440px);
+			text-align: center;
+			font-size: 0.9rem;
+
+			&:hover {
+				cursor: pointer;
+				background-color: $color_one;
+				color: $color_seven;
+			}
+		}
+	}
+}
+
+.name_active {
+	background-color: $color_one;
+	color: $color_seven;
+	text-transform: capitalize;
+	padding: adapt(10px, 1440px);
+	border-radius: adapt(10px, 1440px);
+	text-align: center;
+	font-size: 0.9rem;
+
+	&:hover {
+		cursor: pointer;
+	}
+}
+
 .block__sources {
 	width: adapt(258px, 1440px);
 	padding: adapt(15px, 1440px) adapt(16px, 1440px);

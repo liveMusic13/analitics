@@ -2,7 +2,10 @@ import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import HighchartsSankey from 'highcharts/modules/sankey';
 import { useSelector } from 'react-redux';
-import { convertDataToSankeyFormat } from '../../../../../utils/convertFields';
+import {
+	concatData,
+	convertDataToSankeyFormat,
+} from '../../../../../utils/convertFields';
 import { generateColorsForObjects } from '../../../../../utils/generateColors';
 import styles from './Sankey.module.scss';
 
@@ -10,7 +13,8 @@ HighchartsSankey(Highcharts);
 
 const Sankey = ({ isViewSource }) => {
 	const { data } = useSelector(state => state.dataVoice);
-	const { nodes, links } = convertDataToSankeyFormat(data.second_graph_data);
+	console.log(data);
+	const { nodes, links } = convertDataToSankeyFormat(concatData(data), data);
 
 	// Генерация цветов для узлов
 	const colors = generateColorsForObjects(nodes);
@@ -42,7 +46,6 @@ const Sankey = ({ isViewSource }) => {
 				nodes: nodes,
 				data: links,
 				type: 'sankey',
-				name: 'Sankey demo series',
 			},
 		],
 	};
@@ -60,9 +63,7 @@ const Sankey = ({ isViewSource }) => {
 			>
 				{[
 					...new Set(
-						data.second_graph_data.map(item => (
-							<p key={Math.random()}>{item.hub}</p>
-						)),
+						concatData(data).map(item => <p key={Math.random()}>{item.hub}</p>),
 					),
 				]}
 			</div>
@@ -71,30 +72,3 @@ const Sankey = ({ isViewSource }) => {
 };
 
 export default Sankey;
-
-// const data = [
-// 	{
-// 		count: 18,
-// 		hub: 'vk.com',
-// 		tonality: 'Нейтрал',
-// 		type: 'Пост',
-// 	},
-// 	{
-// 		count: 5,
-// 		hub: 'vk.com',
-// 		tonality: 'Негатив',
-// 		type: 'Пост',
-// 	},
-// 	{
-// 		count: 1,
-// 		hub: 'privatbankrf.ru',
-// 		tonality: 'Позитив',
-// 		type: 'Пост',
-// 	},
-// 	{
-// 		count: 1,
-// 		hub: 'banki.ru',
-// 		tonality: 'Нейтрал',
-// 		type: 'Комментарий',
-// 	},
-// ];

@@ -1,10 +1,12 @@
 @import '../../../../../assets/styles/variables';
 @import '../../../../../assets/styles/functions';
+@import '../../../../../assets/styles/mixins';
 
 .wrapper_table {
-	height: 100%;
+	height: 90%;
 	overflow-y: auto;
-	width: 100%;
+	// width: 85%;
+	min-width: 80%;
 	display: flex;
 	flex-direction: column;
 
@@ -14,46 +16,17 @@
 
 		> .header__topBlock {
 			display: flex;
-			justify-content: center;
 			gap: adapt(100px, 1440px);
 			margin-bottom: adapt(20px, 1440px);
 
 			> .block__globalFilter {
-				height: adapt(50px, 1440px);
-				width: adapt(285px, 1440px);
-				padding: adapt(15px, 1440px) adapt(12px, 1440px);
-				border-radius: adapt(8px, 1440px);
-				border: 1x solid rgba($color: $color_four, $alpha: 0.12);
-				background-color: $color_seven;
-				display: flex;
-				gap: adapt(8px, 1440px);
-				align-items: center;
-
-				> input {
-					height: 100%;
-					line-height: 1.4;
-					font-size: 0.87rem;
-					color: $color_four;
-					width: 90%;
-					border: none;
-					outline: none;
-
-					&::placeholder {
-						color: rgba($color: $color_four, $alpha: 0.4);
-						padding-left: 0px;
-					}
-				}
-
-				> img {
-					width: adapt(12px, 1440px);
-					height: adapt(14px, 1440px);
-				}
+				@include input-global-filter();
 			}
 
 			> .block__select {
 				display: flex;
 				align-items: center;
-				font-size: 1.2rem;
+				font-size: 1rem;
 
 				> span {
 					margin-right: adapt(20px, 1440px);
@@ -68,6 +41,47 @@
 					}
 				}
 			}
+
+			> .block__categories {
+				display: flex;
+				align-items: center;
+				gap: adapt(20px, 1440px);
+
+				> button {
+					font-size: 2rem;
+					background-color: $color_one;
+					width: adapt(30px, 1440px);
+					height: adapt(30px, 1440px);
+					padding-top: adapt(2px, 1440px);
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					border-radius: adapt(6px, 1440px);
+					color: $color_seven;
+
+					&:hover {
+						cursor: pointer;
+					}
+				}
+
+				> input {
+					height: adapt(50px, 1440px);
+					width: adapt(285px, 1440px);
+					padding: adapt(15px, 1440px) adapt(12px, 1440px);
+					border-radius: adapt(8px, 1440px);
+					border: 1x solid rgba($color: $color_four, $alpha: 0.12);
+					background-color: $color_seven;
+					line-height: 1.4;
+					font-size: 0.87rem;
+					color: $color_four;
+					outline: none;
+
+					&::placeholder {
+						color: rgba($color: $color_four, $alpha: 0.4);
+						padding-left: 0px;
+					}
+				}
+			}
 		}
 
 		> .block__hiddenColumns {
@@ -75,7 +89,7 @@
 			justify-content: space-between;
 
 			> label {
-				font-size: 1.2rem;
+				font-size: 1rem;
 				display: flex;
 				align-items: center;
 
@@ -97,18 +111,21 @@
 	}
 
 	> table {
-		margin: adapt(30px, 1440px);
+		margin-top: adapt(30px, 1440px);
+		margin-bottom: adapt(30px, 1440px);
+		// margin: adapt(30px, 1440px);
 		padding: adapt(15px, 1440px);
-		border-radius: adapt(20px, 1440px);
-		box-shadow: 0px 0px adapt(30px, 1440px) $color_six;
-		align-self: center;
+		// border-radius: adapt(20px, 1440px);
+		// box-shadow: 0px 0px adapt(30px, 1440px) $color_six;
+
+		width: 100%;
 
 		> thead {
 			> tr {
 				> th {
 					border-top-left-radius: adapt(15px, 1440px);
 					border-top-right-radius: adapt(15px, 1440px);
-					font-size: 1.5rem;
+					font-size: 1.2rem;
 					padding: adapt(10px, 1440px);
 
 					&:hover {
@@ -128,7 +145,6 @@
 				> td {
 					padding: adapt(10px, 1440px);
 					font-size: 1rem;
-					text-align: center;
 				}
 
 				&:nth-child(2n) {
