@@ -51,3 +51,109 @@
 		cursor: pointer;
 	}
 }
+
+@mixin style-graph-page() {
+	height: 81%;
+	width: 100%;
+	margin-top: adapt(16px, 1440px);
+	margin-bottom: adapt(40px, 1440px);
+	padding: adapt(16px, 1440px);
+	background-color: $color_seven;
+	display: flex;
+	flex-direction: column;
+
+	> .block__title {
+		display: flex;
+		justify-content: space-between;
+
+		> .block__buttons {
+			height: adapt(42px, 1440px);
+			border-radius: adapt(8px, 1440px);
+			background-color: $color_eleven;
+
+			> button {
+				height: 100%;
+				border-radius: adapt(8px, 1440px);
+				padding: adapt(8px, 1440px) adapt(12px, 1440px);
+				font-size: 0.81rem;
+				line-height: 1.4;
+
+				&:hover {
+					cursor: pointer;
+				}
+			}
+
+			> .activeButton {
+				color: $color_seven;
+				background-color: $color_one;
+			}
+		}
+
+		> .block__settings {
+			height: adapt(33px, 1440px);
+			display: flex;
+			gap: 8px;
+
+			> button {
+				&:hover {
+					cursor: pointer;
+				}
+			}
+
+			> .button__description {
+				width: adapt(258px, 1440px);
+				height: 100%;
+				border-radius: adapt(4px, 1440px);
+				background-color: $color_eleven;
+				color: $color_one;
+				font-size: 0.75rem;
+			}
+			> .button__settings {
+				border-radius: adapt(4px, 1440px);
+				width: adapt(36px, 1440px);
+				height: 100%;
+				background-color: $color_eleven;
+			}
+		}
+	}
+
+	> .container__graph {
+		align-self: center;
+		width: 100%;
+		height: 98%;
+		display: flex;
+		position: relative;
+	}
+}
+
+@mixin input-global-filter() {
+	height: adapt(50px, 1440px);
+	width: adapt(285px, 1440px);
+	padding: adapt(15px, 1440px) adapt(12px, 1440px);
+	border-radius: adapt(8px, 1440px);
+	border: 1x solid rgba($color: $color_four, $alpha: 0.12);
+	background-color: $color_seven;
+	display: flex;
+	gap: adapt(8px, 1440px);
+	align-items: center;
+
+	> input {
+		height: 100%;
+		line-height: 1.4;
+		font-size: 0.87rem;
+		color: $color_four;
+		width: 90%;
+		border: none;
+		outline: none;
+
+		&::placeholder {
+			color: rgba($color: $color_four, $alpha: 0.4);
+			padding-left: 0px;
+		}
+	}
+
+	> img {
+		width: adapt(12px, 1440px);
+		height: adapt(14px, 1440px);
+	}
+}

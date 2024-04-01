@@ -1,6 +1,6 @@
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { convertValuesToValue } from '../../../../utils/convertFields';
 import styles from './TonalityGraphs.module.scss';
@@ -9,6 +9,7 @@ import Mentions from './mentions/Mentions';
 
 const TonalityGraphs = () => {
 	const userTonalityData = useSelector(state => state.userTonalityData);
+	const cashingData = useMemo(() => userTonalityData, [userTonalityData]);
 	const [data, setData] = useState(
 		convertValuesToValue(userTonalityData.tonality_hubs_values.negative_hubs),
 	);
@@ -28,21 +29,17 @@ const TonalityGraphs = () => {
 	useEffect(() => {
 		if (activeButton === 'negative') {
 			setData(
-				convertValuesToValue(
-					userTonalityData.tonality_hubs_values.negative_hubs,
-				),
+				convertValuesToValue(cashingData.tonality_hubs_values.negative_hubs),
 			);
 		} else if (activeButton === 'positive') {
 			setData(
-				convertValuesToValue(
-					userTonalityData.tonality_hubs_values.positive_hubs,
-				),
+				convertValuesToValue(cashingData.tonality_hubs_values.positive_hubs),
 			);
 		} else {
 			setData(
 				convertValuesToValue(
 					//HELP: Мне данные не нужны в авторах, поэтому просто ставлю это значение, чтобы ошибки не возникало
-					userTonalityData.tonality_hubs_values.positive_hubs,
+					cashingData.tonality_hubs_values.positive_hubs,
 				),
 			);
 		}
@@ -72,8 +69,8 @@ const TonalityGraphs = () => {
 						}
 						onClick={() => handleClick('negative')}
 					>
-						Негативные упоминания (
-						{userTonalityData.tonality_values.negative_count})
+						Негативные упоминания ({cashingData?.tonality_values.negative_count}
+						)
 					</button>
 					<button
 						className={
@@ -81,8 +78,8 @@ const TonalityGraphs = () => {
 						}
 						onClick={() => handleClick('positive')}
 					>
-						Позитивные упоминания (
-						{userTonalityData.tonality_values.positive_count})
+						Позитивные упоминания ({cashingData?.tonality_values.positive_count}
+						)
 					</button>
 					<button
 						className={
@@ -91,8 +88,8 @@ const TonalityGraphs = () => {
 						onClick={() => handleClick('tonality')}
 					>
 						Тональность авторов (
-						{userTonalityData.negative_authors_values.length +
-							userTonalityData.positive_authors_values.length}
+						{cashingData.negative_authors_values.length +
+							cashingData.positive_authors_values.length}
 						)
 					</button>
 				</div>

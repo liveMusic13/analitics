@@ -21,7 +21,7 @@ export const data = [
 		id: 3,
 		src: './images/icons/menu/voice_of_customer_active.svg',
 		text: 'Voice of customer',
-		path: '/user-tonality',
+		path: '/voice-of-customer',
 	},
 	{
 		id: 4,

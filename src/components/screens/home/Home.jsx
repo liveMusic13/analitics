@@ -39,7 +39,7 @@ const Home = () => {
 			// 	max_date: 1707218189,
 			// });
 			const response = await $axios.get(
-				'/tonality_landscape?index=1&min_date=1706760780&max_date=1707218189',
+				'/voice?index=1&min_date=1706760780&max_date=1707218189&query_str=карта%2C%20кредит',
 				// '/information_graph?index=2&min_date=1705266000&max_date=1705846629&query_str=data',
 			);
 

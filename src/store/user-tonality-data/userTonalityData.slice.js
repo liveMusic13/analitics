@@ -1,7 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-	tonality_hubs_values: { negative_hubs: [] },
+	tonality_values: { negative_count: 0, positive_count: 0 },
+	tonality_hubs_values: {
+		negative_hubs: [],
+		positive_hubs: [],
+	},
+	negative_authors_values: [],
+	positive_authors_values: [],
 };
 
 export const userTonalityData = createSlice({

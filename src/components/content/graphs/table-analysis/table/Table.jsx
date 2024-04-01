@@ -7,14 +7,13 @@ import {
 	useReactTable,
 } from '@tanstack/react-table';
 import { useMemo, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { actions as themesDataAction } from '../../../../../store/themes-data/themesData.slice';
 import styles from './Table.module.scss';
 
-//TODO: УЗНАТЬ БУДЕТ ЛИ ЧТО ЕЩЁ НА ЭТОЙ СТРАНИЦЕ, И ЕСЛИ НЕТ, ТО УБРАТЬ ЭТОТ КОМПОНЕНТ И ВСЕ ОСТАВИТЬ В ОДНОМ
-//TODO: УДАЛИТЬ ЗАВИСИМОСТЬ СТАРОЙ ВЕРСИИ ТАБЛИЦЫ REACT-TABLE ЕСЛИ ВСЕ НОРМ БУДЕТ
-const Table = () => {
+const Table = ({ valueCategories, setValueCategories, handleDragStart }) => {
 	const { values } = useSelector(state => state.themesData);
-
+	const dispatch = useDispatch();
 	const data = useMemo(() => values, []);
 
 	const columns = useMemo(
@@ -102,6 +101,25 @@ const Table = () => {
 							))}
 						</select>
 					</div>
+					<div className={styles.block__categories}>
+						<button
+							onClick={() => {
+								if (valueCategories !== '') {
+									dispatch(themesDataAction.addCategories(valueCategories));
+									setValueCategories('');
+								}
+							}}
+						>
+							+
+						</button>
+
+						<input
+							type='text'
+							value={valueCategories}
+							onChange={e => setValueCategories(e.target.value)}
+							placeholder='Название тематики'
+						/>
+					</div>
 				</div>
 				<div className={styles.block__hiddenColumns}>
 					<label>
@@ -158,7 +176,11 @@ const Table = () => {
 				</thead>
 				<tbody>
 					{tableInstance.getRowModel().rows.map(rowEl => (
-						<tr key={rowEl.id}>
+						<tr
+							key={rowEl.id}
+							draggable
+							onDragStart={() => handleDragStart(rowEl.original)}
+						>
 							{rowEl.getVisibleCells().map(cellEl => (
 								<td key={cellEl.id}>
 									{flexRender(
@@ -170,6 +192,24 @@ const Table = () => {
 						</tr>
 					))}
 				</tbody>
+
+				{/* <tbody>
+					{tableInstance.getRowModel().rows.map(rowEl => {
+						console.log(rowEl.original);
+						return (
+							<tr key={rowEl.id}>
+								{rowEl.getVisibleCells().map(cellEl => (
+									<td key={cellEl.id}>
+										{flexRender(
+											cellEl.column.columnDef.cell,
+											cellEl.getContext(),
+										)}
+									</td>
+								))}
+							</tr>
+						);
+					})}
+				</tbody> */}
 			</table>
 			<div className={styles.block__pagination}>
 				<button

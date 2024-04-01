@@ -10,3 +10,18 @@ export function generateColorsForObjects(array) {
 
 	return colors;
 }
+
+// export function generateColorsForObjects(array) {
+// 	const colors = [];
+// 	const goldenRatio = 0.618033988749895; // Значение золотого сечения
+// 	let hue = Math.random(); // Случайное начальное значение
+
+// 	for (let i = 0; i < array.length; i++) {
+// 		hue += goldenRatio;
+// 		hue %= 1; // Ограничиваем значение hue в диапазоне от 0 до 1
+// 		const color = `hsl(${hue * 360}, 100%, 50%)`; // Создаем цвет HSL
+// 		colors.push(color);
+// 	}
+
+// 	return colors;
+// }

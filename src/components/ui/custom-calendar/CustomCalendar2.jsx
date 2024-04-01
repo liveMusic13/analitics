@@ -1,8 +1,5 @@
 import { useState } from 'react';
-import 'react-calendar/dist/Calendar.css';
-import 'react-clock/dist/Clock.css';
-import DateTimePicker from 'react-datetime-picker';
-import 'react-datetime-picker/dist/DateTimePicker.css';
+import Calendar from 'react-calendar';
 import { useDispatch, useSelector } from 'react-redux';
 import { actions as dataForRequestAction } from '../../../store/data-for-request/dataForRequest.slice';
 import {
@@ -11,6 +8,7 @@ import {
 	convertTimestamp,
 } from '../../../utils/convertTimestamp';
 import Button from '../button/Button';
+import './CalendarStyle.scss';
 import styles from './CustomCalendar.module.scss';
 
 const CustomCalendar = () => {
@@ -18,35 +16,49 @@ const CustomCalendar = () => {
 	const dataUser = useSelector(state => state.dataUser);
 	const dispatch = useDispatch();
 
+	const [isViewCalendar, setViewCalendar] = useState(false);
+	const [dateRange, setDateRange] = useState([
+		new Date('2010/02/10'),
+		new Date('2021/05/12'),
+	]);
+
+	// console.log(moment('Mar 18 2024 00:00:00 GMT+0300').valueOf() / 1000);
+
+	// console.log(
+	// 	'Тестим даты2: ',
+	// 	Math.floor(
+	// 		new Date('Mar 18 2024 00:00:00 GMT+0300 (Москва, стандартное время)') /
+	// 			1000,
+	// 	),
+	// );
+
+	const onChange = date => {
+		setDateRange(date);
+		console.log('fsdfsdfsd', new Date(date[0]));
+		console.log('fsdfsdfsd', new Date(date[1]));
+		dispatch(
+			dataForRequestAction.addMinDate(
+				convertDateToTimestamp(date[0].toLocaleDateString()),
+			),
+		);
+		dispatch(
+			dataForRequestAction.addMaxDate(
+				convertDateToTimestamp(date[1].toLocaleDateString()),
+			),
+		);
+
+		// console.log(
+		// 	dataForRequestAction.addMaxDate(
+		// 		convertDateToTimestamp(date[1].toLocaleDateString()),
+		// 	),
+		// );
+	};
+
 	const findTargetFile = dataUser.find(
 		file => file.index_number === dataForRequest.index,
 	); //HELP: Находим файл по index_number
 	const minDate = findTargetFile?.min_data; //HELP: Получаем мин и макс дату
 	const maxDate = findTargetFile?.max_data;
-
-	const [isViewCalendar, setViewCalendar] = useState(false);
-	const [dateRange, setDateRange] = useState(
-		new Date(convertDateFormat(convertTimestamp(minDate))),
-	);
-	const [dateRangeTwo, setDateRangeTwo] = useState(
-		new Date(convertDateFormat(convertTimestamp(maxDate))),
-	);
-
-	// console.log(dateRange);
-
-	const onChangeMin = date => {
-		setDateRange(date);
-		console.log(date);
-		dispatch(dataForRequestAction.addMinDate(convertDateToTimestamp(date)));
-		console.log(convertDateToTimestamp(date));
-	};
-
-	const onChangeMax = date => {
-		setDateRangeTwo(date);
-		console.log(date);
-		dispatch(dataForRequestAction.addMaxDate(convertDateToTimestamp(date)));
-		console.log(convertDateToTimestamp(date));
-	};
 
 	return (
 		<div className={styles.wrapper_calendar}>
@@ -74,24 +86,17 @@ const CustomCalendar = () => {
 			</div>
 			{isViewCalendar && (
 				<div className={styles.block__calendar}>
-					<div className={styles.block__dateTimePicker}>
-						<DateTimePicker
-							onChange={onChangeMin}
-							value={dateRange}
-							minDate={new Date(convertDateFormat(convertTimestamp(minDate)))}
-							maxDate={new Date(convertDateFormat(convertTimestamp(maxDate)))}
-						/>
-						<DateTimePicker
-							onChange={onChangeMax}
-							value={dateRangeTwo}
-							minDate={new Date(convertDateFormat(convertTimestamp(minDate)))}
-							maxDate={new Date(convertDateFormat(convertTimestamp(maxDate)))}
-						/>
-					</div>
+					<Calendar
+						onChange={onChange}
+						value={dateRange}
+						selectRange={true}
+						minDate={new Date(convertDateFormat(convertTimestamp(minDate)))}
+						maxDate={new Date(convertDateFormat(convertTimestamp(maxDate)))}
+					/>
 					<div className={styles.block__preview}>
 						<p className={styles.preview__date}>
-							{dateRange.toLocaleDateString()} -{' '}
-							{dateRangeTwo.toLocaleDateString()}
+							{dateRange[0].toLocaleDateString()} -{' '}
+							{dateRange[1].toLocaleDateString()}
 						</p>
 						<div className={styles.block__buttons}>
 							<button

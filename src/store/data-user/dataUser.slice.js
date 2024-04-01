@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = [
 	{
 		file: '',
+		index_number: 1,
 		min_data: 4345323,
 		max_data: 4353534,
 	},

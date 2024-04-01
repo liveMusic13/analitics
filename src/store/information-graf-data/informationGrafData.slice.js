@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
 	values: [],
+	dynamicdata_audience: {},
 };
 
 export const informationGraphData = createSlice({

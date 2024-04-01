@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
 	values: [],
+	categories: {},
 };
 
 export const themesData = createSlice({
@@ -10,6 +11,12 @@ export const themesData = createSlice({
 	reducers: {
 		addThemesData: (state, { payload }) => {
 			state.values = payload;
+		},
+		addCategories: (state, { payload }) => {
+			state.categories[payload] = [];
+		},
+		addObject: (state, { payload }) => {
+			state.categories[payload.text].push(payload.data);
 		},
 	},
 });

@@ -1,6 +1,10 @@
 export function convertTimestamp(timestamp) {
 	var date = new Date(timestamp * 1000);
-	return date.toUTCString();
+	// console.log('date', date);
+	// console.log('date.toUTCString()', date.toUTCString());
+
+	// return date.toUTCString();
+	return date;
 }
 
 export function convertDateFormat(dateString) {
@@ -8,10 +12,12 @@ export function convertDateFormat(dateString) {
 	return date.toISOString().slice(0, 10).replace(/-/g, '/');
 }
 
-export function convertDateToTimestamp(dateString) {
-	const [day, month, year] = dateString.split('.');
+export function convertDateToTimestamp(dateTimeString) {
+	// const [day, month, year] = dateTimeString.split('.');
 
-	const timestamp = Math.floor(Date.UTC(year, month - 1, day) / 1000);
+	// const timestamp = Math.floor(Date.UTC(year, month - 1, day) / 1000);
 
-	return timestamp;
+	// return timestamp;
+	const date = new Date(dateTimeString);
+	return Math.floor(date / 1000);
 }

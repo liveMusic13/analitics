@@ -25,7 +25,7 @@ export const menuPageData = [
 		title: 'Voice of customer',
 		src: '../images/icons/menu/voice_of_customer.svg',
 		src_active: '../images/icons/menu/voice_of_customer_active.svg',
-		path: '/none',
+		path: '/voice-of-customer',
 	},
 	{
 		id: 4,
