@@ -1,6 +1,7 @@
 import Auth from '../components/screens/auth/Auth';
 import Home from '../components/screens/home/Home';
 import InformationGraf from '../components/screens/information-graf/InformationGraf';
+import MediaRating from '../components/screens/media-rating/MediaRating';
 import TopicAnalysis from '../components/screens/topic-analysis/TopicAnalysis';
 import UserTonality from '../components/screens/user-tonality/UserTonality';
 import VoiceOfCustomer from '../components/screens/voice-of-customer/VoiceOfCustomer';
@@ -34,6 +35,11 @@ export const routes = [
 	{
 		path: '/voice-of-customer',
 		component: VoiceOfCustomer,
+		isAuth: true,
+	},
+	{
+		path: '/media-rating',
+		component: MediaRating,
 		isAuth: true,
 	},
 ];

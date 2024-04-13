@@ -15,7 +15,7 @@ export const data = [
 		id: 2,
 		src: './images/icons/menu/media_rating_active.svg',
 		text: 'Media rating',
-		path: '/user-tonality',
+		path: '/media-rating',
 	},
 	{
 		id: 3,

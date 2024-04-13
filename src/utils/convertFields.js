@@ -108,20 +108,39 @@ export const convertDataToSankeyFormat = (data, fulldata) => {
 	return { nodes, links };
 };
 
-// fulldata = [
-// 	{
-// 		name: 'карта',
-// 		sunkey_data: [
-// 			{
-// 				count: 18,
-// 				hub: "vk.com",
-// 				search:'карта',
-// 				tonality:'Нейтрал',
-// 				type:'Пост'
-// 			}
-// 		]
-// 	}
-// ]
+export const convertDataForSplitBubble = data => {
+	let newData = [];
+
+	for (let categor in data) {
+		if (data.hasOwnProperty(categor)) {
+			let transformedData = data[categor].map(item => {
+				return { name: item.name, value: item.index };
+			});
+			newData.push({ name: categor, data: transformedData });
+		}
+	}
+	console.log(newData);
+	return newData;
+};
+
+export const convertDataForBubbleChart = data => {
+	let newData = [];
+
+	data.forEach(elem => {
+		let transformedData = {
+			x: elem.time,
+			y: elem.index,
+			z: 5,
+			color: elem.color,
+			name: elem.name.slice(0, 2).toUpperCase(),
+			source: elem.name,
+			url: elem.url,
+		};
+		newData.push(transformedData);
+	});
+
+	return newData;
+};
 
 export function concatData(data) {
 	// Создаем пустой массив для объединенных данных
