@@ -18,7 +18,7 @@ export const menuPageData = [
 		title: 'Media rating',
 		src: '../images/icons/menu/media_rating.svg',
 		src_active: '../images/icons/menu/media_rating_active.svg',
-		path: '/none',
+		path: '/media-rating',
 	},
 	{
 		id: 3,

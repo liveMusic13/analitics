@@ -1,5 +1,6 @@
 import { useAddTonalityData } from '../../../hooks/useAddTonalityData';
 import { useGetInformationGraf } from '../../../hooks/useGetInformationGraf.js';
+import { useMediaRating } from '../../../hooks/useMediaRating.js';
 import { useThemesRequest } from '../../../hooks/useThemesRequest.js';
 import { useVoiceRequest } from '../../../hooks/useVoiceRequest.js';
 import styles from './Button.module.scss';
@@ -9,6 +10,7 @@ const Button = ({ children, type, buttonFor, setViewCalendar, navigate }) => {
 	const { addInformationGraf } = useGetInformationGraf();
 	const { themesRequest } = useThemesRequest();
 	const { voiceRequest } = useVoiceRequest();
+	const { mediaRequest } = useMediaRating();
 
 	return (
 		<>
@@ -98,6 +100,28 @@ const Button = ({ children, type, buttonFor, setViewCalendar, navigate }) => {
 							min_data: dataForRequest.min_data,
 							max_data: dataForRequest.max_data,
 							query_str: dataForRequest.query_str,
+						});
+					}}
+				>
+					{children}
+				</button>
+			) : buttonFor === 'media-rating' ? (
+				<button
+					className={styles.button}
+					type={type}
+					style={{
+						width: 'calc(144 / 1440 * 100vw)',
+						height: 'calc(56 / 1440 * 100vw)',
+					}}
+					onClick={() => {
+						console.log('ok');
+						mediaRequest({
+							index: dataForRequest.index,
+							min_data: dataForRequest.min_data,
+							max_data: dataForRequest.max_data,
+							// index: 8,
+							// min_data: 1711400539,
+							// max_data: 1711975477,
 						});
 					}}
 				>

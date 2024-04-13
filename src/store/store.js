@@ -1,5 +1,6 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { reducer as dataForRequest } from './data-for-request/dataForRequest.slice';
+import { reducer as dataMedia } from './data-media/dataMedia.slice';
 import { reducer as dataUser } from './data-user/dataUser.slice';
 import { reducer as dataVoice } from './data-voice/dataVoice.slice';
 import { reducer as errorState } from './error-state/errorState.slice';
@@ -21,6 +22,7 @@ const reducers = combineReducers({
 	themesData: themesData,
 	loadStatus: loadStatus,
 	dataVoice: dataVoice,
+	dataMedia: dataMedia,
 });
 
 export const store = configureStore({

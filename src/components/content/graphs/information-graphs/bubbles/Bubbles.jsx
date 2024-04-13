@@ -48,7 +48,7 @@ const Bubbles = ({ isViewSource }) => {
 
 			series.data.setAll([
 				{
-					name: 'Root',
+					name: informationGraphData.values[0].author.fullname,
 					value: 0,
 					children: informationGraphData.values.map(author => {
 						return {
