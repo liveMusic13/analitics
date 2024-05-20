@@ -5,7 +5,7 @@ import styles from './Field.module.scss';
 
 const Field = ({ type, placeholder, register, id, label, auth }) => {
 	const [isViewPassword, setIsViePassword] = useState(false);
-	const { query_str } = useSelector(state => state.dataForRequest);
+	const { query_str, promt } = useSelector(state => state.dataForRequest);
 	const dispatch = useDispatch();
 
 	return (
@@ -56,10 +56,16 @@ const Field = ({ type, placeholder, register, id, label, auth }) => {
 						className={styles.input}
 						type='text'
 						placeholder={placeholder}
-						value={query_str}
-						onChange={e =>
-							dispatch(dataForRequestAction.addQueryStr(e.target.value))
+						value={
+							placeholder === 'Задайте запрос к текстам' ? promt : query_str
 						}
+						onChange={e => {
+							if (placeholder === 'Задайте запрос к текстам') {
+								dispatch(dataForRequestAction.addPromt(e.target.value));
+							} else {
+								dispatch(dataForRequestAction.addQueryStr(e.target.value));
+							}
+						}}
 					/>
 				</div>
 			)}

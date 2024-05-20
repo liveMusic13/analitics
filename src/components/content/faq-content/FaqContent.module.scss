@@ -1,0 +1,23 @@
+@import '../../../assets/styles/variables';
+@import '../../../assets/styles/functions';
+
+.wrapper_faq {
+	display: flex;
+	flex-direction: column;
+	gap: adapt(24px, 1440px);
+	overflow-y: auto;
+	// scrollbar-width: thin;
+	// scrollbar-color: green black;
+
+	> .title {
+		font-size: 1.12rem;
+		font-weight: 500;
+	}
+	> .menu {
+		display: flex;
+		flex-direction: column;
+		gap: adapt(8px, 1440px);
+		overflow-y: auto;
+		padding-right: 30px;
+	}
+}

@@ -1,4 +1,5 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { reducer as aiData } from './data-ai/dataAI.slice';
 import { reducer as dataForRequest } from './data-for-request/dataForRequest.slice';
 import { reducer as dataMedia } from './data-media/dataMedia.slice';
 import { reducer as dataUser } from './data-user/dataUser.slice';
@@ -8,6 +9,7 @@ import { reducer as informationGraphData } from './information-graf-data/informa
 import { reducer as isActiveMenu } from './is-active-menu/isActiveMenu.slice';
 import { reducer as isGraph } from './is-graph/isGraph.slice';
 import { reducer as loadStatus } from './load-status/loadStatus.slice';
+import { reducer as isPopup } from './popup/popup.slice';
 import { reducer as themesData } from './themes-data/themesData.slice';
 import { reducer as userTonalityData } from './user-tonality-data/userTonalityData.slice';
 
@@ -23,6 +25,8 @@ const reducers = combineReducers({
 	loadStatus: loadStatus,
 	dataVoice: dataVoice,
 	dataMedia: dataMedia,
+	aiData: aiData,
+	isPopup: isPopup,
 });
 
 export const store = configureStore({

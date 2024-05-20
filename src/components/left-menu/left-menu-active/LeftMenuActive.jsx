@@ -28,7 +28,7 @@ const LeftMenuActive = () => {
 						src='./images/full_logo.svg'
 						alt='logo'
 					/>
-					<nav className={styles.menu}>
+					{/* <nav className={styles.menu}>
 						<ul className={styles.menu__list}>
 							<li className={styles.menu__item}>
 								<img src='./images/icons/menu/FAQ.svg' alt='FAQ' /> FAQ
@@ -49,6 +49,53 @@ const LeftMenuActive = () => {
 								<img src='./images/icons/menu/logout.svg' alt='logout' />
 								Выйти из аккаунта
 							</li>
+						</ul>
+					</nav> */}
+					<nav className={styles.menu}>
+						<ul className={styles.menu__list_settings}>
+							{menuSettings.map(itemMenu => {
+								if (itemMenu.path) {
+									return (
+										<Link
+											to={itemMenu.path}
+											key={itemMenu.id}
+											className={styles.menu__item}
+										>
+											<img
+												src={
+													itemMenu.id === 1
+														? '../images/icons/menu/change_menu_exit.svg'
+														: itemMenu.src
+												}
+												alt={itemMenu.title}
+											/>
+											{itemMenu.title}
+										</Link>
+									);
+								} else {
+									return (
+										<li
+											key={itemMenu.id}
+											className={styles.menu__item}
+											onClick={() => {
+												if (itemMenu.id === 1)
+													dispatch(isActiveMenuAction.toggleActiveMenu(''));
+												if (itemMenu.id === 2) logoutHandler();
+											}}
+										>
+											<img
+												src={
+													itemMenu.id === 1
+														? '../images/icons/menu/change_menu_exit.svg'
+														: itemMenu.src
+												}
+												alt={itemMenu.title}
+											/>
+											{itemMenu.title}
+										</li>
+									);
+								}
+							})}
 						</ul>
 					</nav>
 				</div>
@@ -96,27 +143,52 @@ const LeftMenuActive = () => {
 					<nav className={styles.menu}>
 						<ul className={styles.menu__list_settings}>
 							{menuSettings.map(itemMenu => {
-								return (
-									<li
-										key={itemMenu.id}
-										className={styles.menu__item}
-										onClick={() => {
-											if (itemMenu.id === 1)
-												dispatch(isActiveMenuAction.toggleActiveMenu(''));
-											if (itemMenu.id === 2) logoutHandler();
-										}}
-									>
-										<img
-											src={
-												itemMenu.id === 1
-													? '../images/icons/menu/change_menu_exit.svg'
-													: itemMenu.src
+								if (itemMenu.path) {
+									return (
+										<Link
+											to={itemMenu.path}
+											key={itemMenu.id}
+											className={
+												pathname === itemMenu.path
+													? styles.menu__item_active
+													: styles.menu__item
 											}
-											alt={itemMenu.title}
-										/>
-										{itemMenu.title}
-									</li>
-								);
+											// className={styles.menu__item}
+										>
+											<img
+												src={
+													pathname === itemMenu.path
+														? itemMenu.src_active
+														: itemMenu.src
+												}
+												alt={itemMenu.title}
+											/>
+											{itemMenu.title}
+										</Link>
+									);
+								} else {
+									return (
+										<li
+											key={itemMenu.id}
+											className={styles.menu__item}
+											onClick={() => {
+												if (itemMenu.id === 1)
+													dispatch(isActiveMenuAction.toggleActiveMenu(''));
+												if (itemMenu.id === 2) logoutHandler();
+											}}
+										>
+											<img
+												src={
+													itemMenu.id === 1
+														? '../images/icons/menu/change_menu_exit.svg'
+														: itemMenu.src
+												}
+												alt={itemMenu.title}
+											/>
+											{itemMenu.title}
+										</li>
+									);
+								}
 							})}
 						</ul>
 					</nav>

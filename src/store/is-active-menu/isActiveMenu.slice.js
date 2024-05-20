@@ -11,6 +11,9 @@ export const isActiveMenu = createSlice({
 		toggleActiveMenu: (state, { payload }) => {
 			state.isActiveMenu = !state.isActiveMenu;
 		},
+		defaultActiveMenu: (state, { payload }) => {
+			state.isActiveMenu = false;
+		},
 	},
 });
 

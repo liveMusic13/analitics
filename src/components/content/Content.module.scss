@@ -9,4 +9,15 @@
 	align-items: center;
 	justify-content: center;
 	padding: adapt(32px, 1440px) adapt(58px, 1440px);
+	position: relative;
+}
+
+.background__opacity {
+	position: absolute;
+	z-index: 1;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background-color: rgba($color: $color_six, $alpha: 0.5);
 }

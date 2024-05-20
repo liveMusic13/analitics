@@ -59,4 +59,10 @@ export const data = [
 		text: 'Topic analysis',
 		path: '/topic-analysis',
 	},
+	{
+		id: 10,
+		src: './images/icons/menu/AI.png',
+		text: 'AI analytics',
+		path: '/ai-analytics',
+	},
 ];
