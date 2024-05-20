@@ -9,12 +9,18 @@ const initialState = {
 	post: false,
 	repost: false,
 	SMI: false,
+	promt: '',
+	texts_ids: [],
+	infoAboutPost: false,
 };
 
 export const dataForRequest = createSlice({
 	name: 'dataForRequest',
 	initialState,
 	reducers: {
+		toggleInfo: (state, { payload }) => {
+			state.infoAboutPost = !state.infoAboutPost;
+		},
 		addIndex: (state, { payload }) => {
 			return { ...state, index: payload };
 		},
@@ -29,6 +35,21 @@ export const dataForRequest = createSlice({
 		},
 		currentCheckBox: (state, { payload }) => {
 			return { ...state, [payload]: !state[payload] };
+		},
+		addPromt: (state, { payload }) => {
+			return { ...state, promt: payload };
+		},
+		addTextsIds: (state, { payload }) => {
+			state.texts_ids.push(payload);
+		},
+		addAllTextsIds: (state, { payload }) => {
+			state.texts_ids = payload.map(item => item.id);
+		},
+		deleteAllTextsIds: (state, { payload }) => {
+			state.texts_ids = [];
+		},
+		deleteTextsIds: (state, { payload }) => {
+			state.texts_ids = state.texts_ids.filter(id => id !== payload);
 		},
 	},
 });

@@ -1,4 +1,6 @@
+import AiAnalytics from '../components/screens/ai-analytics/AiAnalytics';
 import Auth from '../components/screens/auth/Auth';
+import Faq from '../components/screens/faq/FAQ';
 import Home from '../components/screens/home/Home';
 import InformationGraf from '../components/screens/information-graf/InformationGraf';
 import MediaRating from '../components/screens/media-rating/MediaRating';
@@ -40,6 +42,16 @@ export const routes = [
 	{
 		path: '/media-rating',
 		component: MediaRating,
+		isAuth: true,
+	},
+	{
+		path: '/ai-analytics',
+		component: AiAnalytics,
+		isAuth: true,
+	},
+	{
+		path: '/faq',
+		component: Faq,
 		isAuth: true,
 	},
 ];

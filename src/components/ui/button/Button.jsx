@@ -1,4 +1,5 @@
 import { useAddTonalityData } from '../../../hooks/useAddTonalityData';
+import { useAiAnalytics } from '../../../hooks/useAiAnalytics.js';
 import { useGetInformationGraf } from '../../../hooks/useGetInformationGraf.js';
 import { useMediaRating } from '../../../hooks/useMediaRating.js';
 import { useThemesRequest } from '../../../hooks/useThemesRequest.js';
@@ -11,6 +12,7 @@ const Button = ({ children, type, buttonFor, setViewCalendar, navigate }) => {
 	const { themesRequest } = useThemesRequest();
 	const { voiceRequest } = useVoiceRequest();
 	const { mediaRequest } = useMediaRating();
+	const { aiRequestGET, aiRequestPOST } = useAiAnalytics();
 
 	return (
 		<>
@@ -43,6 +45,36 @@ const Button = ({ children, type, buttonFor, setViewCalendar, navigate }) => {
 								index: dataForRequest.index,
 								min_data: dataForRequest.min_data,
 								max_data: dataForRequest.max_data,
+							});
+						}
+					}}
+				>
+					{children}
+				</button>
+			) : buttonFor === 'ai-analytics' || 'ai-analyticsPost' ? (
+				<button
+					className={styles.button}
+					type={type}
+					style={{
+						width: 'calc(144 / 1440 * 100vw)',
+						height: 'calc(56 / 1440 * 100vw)',
+					}}
+					onClick={() => {
+						if (buttonFor === 'ai-analyticsPost') {
+							aiRequestPOST({
+								index: dataForRequest.index,
+								min_date: dataForRequest.min_data,
+								max_date: dataForRequest.max_data,
+								promt: dataForRequest.promt,
+								texts_ids: dataForRequest.texts_ids,
+							});
+						} else if (buttonFor === 'ai-analytics') {
+							aiRequestGET({
+								index: dataForRequest.index,
+								min_date: dataForRequest.min_data,
+								max_date: dataForRequest.max_data,
+								// promt: dataForRequest.promt,
+								// texts_ids: dataForRequest.texts_ids,
 							});
 						}
 					}}

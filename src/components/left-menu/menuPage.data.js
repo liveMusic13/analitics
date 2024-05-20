@@ -69,6 +69,13 @@ export const menuPageData = [
 		src_active: '../images/icons/menu/table.png',
 		path: '/topic-analysis',
 	},
+	{
+		id: 10,
+		title: 'AI analytics',
+		src: '../images/icons/menu/AI.png',
+		src_active: '../images/icons/menu/AI.png',
+		path: '/ai-analytics',
+	},
 ];
 
 export const menuSettings = [
@@ -77,6 +84,7 @@ export const menuSettings = [
 		title: 'FAQ',
 		src: '../images/icons/menu/FAQ.svg',
 		src_active: '../images/icons/menu/FAQ_active.svg',
+		path: '/faq',
 	},
 	{
 		id: 1,

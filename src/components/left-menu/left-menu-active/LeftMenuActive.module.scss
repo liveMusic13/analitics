@@ -96,10 +96,27 @@
 				}
 			}
 
+			// > .menu__item_active {
+			// 	background-color: $color_eleven;
+			// 	font-size: 0.81rem;
+			// 	@include menu-item();
+
+			// 	> img {
+			// 		width: adapt(20px, 1440px);
+			// 		margin-right: adapt(13px, 1440px);
+			// 	}
+
+			// 	&:hover {
+			// 		cursor: pointer;
+			// 	}
+			// }
 			> .menu__item_active {
 				background-color: $color_eleven;
 				font-size: 0.81rem;
 				@include menu-item();
+				color: $color_one;
+				display: flex;
+				align-items: center;
 
 				> img {
 					width: adapt(20px, 1440px);
