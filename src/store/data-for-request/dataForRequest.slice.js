@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
 	//TODO: НАДО СДЕЛАТЬ ДОБАВЛЕНИЕ ДАТЫ ПРИ ИНИЦИАЛИЗАЦИИ, ЧТОБЫ НЕ ВЫДАВАЛО ОШИБКУ
 	index: 1,
+	themes_ind: [1, 1],
 	min_data: 1706745600,
 	max_data: 1707177600,
 	query_str: '',
@@ -18,6 +19,16 @@ export const dataForRequest = createSlice({
 	name: 'dataForRequest',
 	initialState,
 	reducers: {
+		addThemesInd: (state, { payload }) => {
+			state.themes_ind.push(payload);
+
+			if (state.themes_ind.length >= 2) {
+				state.themes_ind.shift(); // Удаляем первый элемент
+			}
+		},
+		clearThemesInd: (state, { payload }) => {
+			state.themes_ind = [];
+		},
 		toggleInfo: (state, { payload }) => {
 			state.infoAboutPost = !state.infoAboutPost;
 		},

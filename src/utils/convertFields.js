@@ -169,3 +169,59 @@ export function getCategoriesName(data) {
 	console.log(nameCategories);
 	return nameCategories;
 }
+
+export const convertDataForLineDynamic = data => {
+	let newData = [];
+
+	data.forEach(elem => {
+		let newObj = {};
+
+		newObj.name = elem.index_name;
+		newObj.data = [];
+
+		elem.values.forEach(point =>
+			newObj.data.push([point.timestamp, point.count]),
+		);
+
+		newData.push(newObj);
+	});
+
+	return newData;
+};
+
+export function transformBubbleData(inputObject, useSMI) {
+	const { SMI, Socmedia, index_name } = inputObject;
+	let result;
+
+	const sourceArray = useSMI ? SMI : Socmedia;
+
+	const transformedData = sourceArray.map(item => ({
+		name: item.name,
+		value: item.rating,
+	}));
+
+	result = {
+		name: index_name,
+		data: transformedData,
+	};
+
+	return result;
+}
+
+export const convertDataForBubbleLine = (data, array) => {
+	let newData = [];
+
+	data[array].forEach(elem => {
+		let transformedData = {
+			x: elem.date,
+			y: elem.rating,
+			z: 20,
+			// name: elem.name.slice(0, 2).toUpperCase(),
+			source: elem.name,
+			url: elem.url,
+		};
+		newData.push(transformedData);
+	});
+	console.log(newData);
+	return newData;
+};

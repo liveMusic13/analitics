@@ -5,6 +5,7 @@ import DateTimePicker from 'react-datetime-picker';
 import 'react-datetime-picker/dist/DateTimePicker.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { actions as dataForRequestAction } from '../../../store/data-for-request/dataForRequest.slice';
+import { convertCompetitive } from '../../../utils/convertCompetitiveData';
 import {
 	convertDateFormat,
 	convertDateToTimestamp,
@@ -13,16 +14,33 @@ import {
 import Button from '../button/Button';
 import styles from './CustomCalendar.module.scss';
 
-const CustomCalendar = () => {
+const CustomCalendar = ({ multi }) => {
 	const dataForRequest = useSelector(state => state.dataForRequest);
 	const dataUser = useSelector(state => state.dataUser);
 	const dispatch = useDispatch();
 
+	//HELP: ПОЛУЧАЕМ ДАТУ ПРИ МУЛЬТИ КАЛЕНДАРЕ
+	const MultiDate = convertCompetitive(
+		dataForRequest.themes_ind[0],
+		dataForRequest.themes_ind[1],
+		// 2,
+		dataUser,
+	);
+
+	console.log(convertTimestamp(1711946448), 'do', convertTimestamp(1716741360));
+	console.log(
+		convertTimestamp(dataUser[2].min_data),
+		convertTimestamp(dataUser[2].max_data),
+		'do',
+		convertTimestamp(dataUser[3].min_data),
+		convertTimestamp(dataUser[3].max_data),
+	);
+
 	const findTargetFile = dataUser.find(
 		file => file.index_number === dataForRequest.index,
 	); //HELP: Находим файл по index_number
-	const minDate = findTargetFile?.min_data; //HELP: Получаем мин и макс дату
-	const maxDate = findTargetFile?.max_data;
+	const minDate = multi ? MultiDate.min_data : findTargetFile?.min_data; //HELP: Получаем мин и макс дату
+	const maxDate = multi ? MultiDate.max_data : findTargetFile?.max_data;
 
 	const [isViewCalendar, setViewCalendar] = useState(false);
 	const [dateRange, setDateRange] = useState(
@@ -40,7 +58,6 @@ const CustomCalendar = () => {
 		dispatch(dataForRequestAction.addMinDate(convertDateToTimestamp(date)));
 		console.log(convertDateToTimestamp(date));
 	};
-
 	const onChangeMax = date => {
 		setDateRangeTwo(date);
 		console.log(date);

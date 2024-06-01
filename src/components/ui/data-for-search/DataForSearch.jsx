@@ -5,11 +5,15 @@ import { truncateDescription } from '../../../utils/descriptionLength';
 import { getFirstWordAfterUnderscore } from '../../../utils/groupFileForSearch';
 import styles from './DataForSearch.module.scss';
 
-const DataForSearch = ({ choiceData }) => {
+const DataForSearch = ({ multi }) => {
 	const dataUser = useSelector(state => state.dataUser);
 	const dataForRequest = useSelector(state => state.dataForRequest);
 	const [isViewOptions, setViewOptions] = useState(false);
 	const dispatch = useDispatch();
+
+	// useEffect(() => {
+	// 	if (isViewOptions) dispatch(dataForRequestActions.clearThemesInd(''));
+	// }, [isViewOptions]);
 
 	const findTargetFile = dataUser.find(
 		file => file.index_number === dataForRequest.index,
@@ -42,10 +46,25 @@ const DataForSearch = ({ choiceData }) => {
 									className={styles.option}
 									key={option.file}
 									onClick={() => {
-										dispatch(
-											dataForRequestActions.addIndex(option.index_number),
-										);
-										setViewOptions(!isViewOptions);
+										if (multi) {
+											// if (dataForRequest.themes_ind.length !== 1) {
+											// 	dispatch(
+											// 		dataForRequestActions.addThemesInd(
+											// 			option.index_number,
+											// 		),
+											// 	);
+											// } else {
+											dispatch(
+												dataForRequestActions.addThemesInd(option.index_number),
+											);
+											// setViewOptions(!isViewOptions);
+											// }
+										} else {
+											dispatch(
+												dataForRequestActions.addIndex(option.index_number),
+											);
+											setViewOptions(!isViewOptions);
+										}
 									}}
 								>
 									<p>{truncateDescription(option.file, 30)}</p>

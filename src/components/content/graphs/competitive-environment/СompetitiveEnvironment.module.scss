@@ -1,0 +1,35 @@
+@import '../../../../assets/styles/mixins';
+@import '../../../../assets/styles/variables';
+@import '../../../../assets/styles/functions';
+
+.block__graph {
+	@include style-graph-page();
+}
+
+.block__subcategory {
+	height: adapt(42px, 1440px);
+	border-radius: adapt(8px, 1440px);
+	background-color: $color_eleven;
+
+	> button {
+		height: 100%;
+		border-radius: adapt(8px, 1440px);
+		padding: adapt(8px, 1440px) adapt(12px, 1440px);
+		font-size: 0.81rem;
+		line-height: 1.4;
+
+		&:hover {
+			cursor: pointer;
+		}
+
+		&:disabled {
+			opacity: 0.5;
+			cursor: default;
+		}
+	}
+
+	> .activeSubcategory {
+		color: $color_seven;
+		background-color: $color_one;
+	}
+}

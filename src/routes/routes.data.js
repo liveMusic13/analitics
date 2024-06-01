@@ -1,5 +1,6 @@
 import AiAnalytics from '../components/screens/ai-analytics/AiAnalytics';
 import Auth from '../components/screens/auth/Auth';
+import Competitive from '../components/screens/competitive/Competitive';
 import Faq from '../components/screens/faq/FAQ';
 import Home from '../components/screens/home/Home';
 import InformationGraf from '../components/screens/information-graf/InformationGraf';
@@ -52,6 +53,11 @@ export const routes = [
 	{
 		path: '/faq',
 		component: Faq,
+		isAuth: true,
+	},
+	{
+		path: '/competitive',
+		component: Competitive,
 		isAuth: true,
 	},
 ];
