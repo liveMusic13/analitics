@@ -1,5 +1,6 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { reducer as aiData } from './data-ai/dataAI.slice';
+import { reducer as competitiveData } from './data-competitive/dataCompetitive.slice';
 import { reducer as dataForRequest } from './data-for-request/dataForRequest.slice';
 import { reducer as dataMedia } from './data-media/dataMedia.slice';
 import { reducer as dataUser } from './data-user/dataUser.slice';
@@ -27,6 +28,7 @@ const reducers = combineReducers({
 	dataMedia: dataMedia,
 	aiData: aiData,
 	isPopup: isPopup,
+	competitiveData: competitiveData,
 });
 
 export const store = configureStore({

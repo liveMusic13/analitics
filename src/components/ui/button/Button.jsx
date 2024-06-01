@@ -1,5 +1,6 @@
 import { useAddTonalityData } from '../../../hooks/useAddTonalityData';
 import { useAiAnalytics } from '../../../hooks/useAiAnalytics.js';
+import { useCompetitive } from '../../../hooks/useCompetitive.js';
 import { useGetInformationGraf } from '../../../hooks/useGetInformationGraf.js';
 import { useMediaRating } from '../../../hooks/useMediaRating.js';
 import { useThemesRequest } from '../../../hooks/useThemesRequest.js';
@@ -13,6 +14,7 @@ const Button = ({ children, type, buttonFor, setViewCalendar, navigate }) => {
 	const { voiceRequest } = useVoiceRequest();
 	const { mediaRequest } = useMediaRating();
 	const { aiRequestGET, aiRequestPOST } = useAiAnalytics();
+	const { addCompetitive } = useCompetitive();
 
 	return (
 		<>
@@ -51,7 +53,7 @@ const Button = ({ children, type, buttonFor, setViewCalendar, navigate }) => {
 				>
 					{children}
 				</button>
-			) : buttonFor === 'ai-analytics' || 'ai-analyticsPost' ? (
+			) : buttonFor === 'ai-analytics' || buttonFor === 'ai-analyticsPost' ? (
 				<button
 					className={styles.button}
 					type={type}
@@ -137,7 +139,7 @@ const Button = ({ children, type, buttonFor, setViewCalendar, navigate }) => {
 				>
 					{children}
 				</button>
-			) : buttonFor === 'media-rating' ? (
+			) : buttonFor === 'media-rating' || buttonFor === 'competitive' ? (
 				<button
 					className={styles.button}
 					type={type}
@@ -147,14 +149,25 @@ const Button = ({ children, type, buttonFor, setViewCalendar, navigate }) => {
 					}}
 					onClick={() => {
 						console.log('ok');
-						mediaRequest({
-							index: dataForRequest.index,
-							min_data: dataForRequest.min_data,
-							max_data: dataForRequest.max_data,
-							// index: 8,
-							// min_data: 1711400539,
-							// max_data: 1711975477,
-						});
+						if (buttonFor === 'media-rating') {
+							mediaRequest({
+								index: dataForRequest.index,
+								min_data: dataForRequest.min_data,
+								max_data: dataForRequest.max_data,
+								// index: 8,
+								// min_data: 1711400539,
+								// max_data: 1711975477,
+							});
+						} else if (buttonFor === 'competitive') {
+							addCompetitive({
+								themes_ind: dataForRequest.themes_ind,
+								min_date: dataForRequest.min_data,
+								max_date: dataForRequest.max_data,
+								// themes_ind: [15, 15],
+								// min_date: 1711918800,
+								// max_date: 1716748025,
+							});
+						}
 					}}
 				>
 					{children}

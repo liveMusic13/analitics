@@ -167,6 +167,44 @@ export const getGraph = {
 			dispatch(loadStatusAction.isLoad(false));
 		}
 	},
+	competitive: async (data, setErrorData, dispatch) => {
+		try {
+			dispatch(loadStatusAction.isLoad(true));
+
+			const cacheKey = JSON.stringify(data);
+			if (cache[cacheKey]) {
+				return cache[cacheKey];
+			}
+
+			const response = await $axios.post('/competitors', {
+				themes_ind: data.themes_ind,
+				min_date: data.min_date,
+				max_date: data.max_date,
+			});
+
+			console.log(response.data);
+			cache[cacheKey] = response.data;
+
+			if (timers[cacheKey]) {
+				//HELP: таймер очистки кэша
+				clearTimeout(timers[cacheKey]);
+			}
+			timers[cacheKey] = setTimeout(
+				() => {
+					delete cache[cacheKey];
+					delete timers[cacheKey];
+				},
+				10 * 60 * 1000,
+			);
+			console.log(response.data);
+			return response.data;
+		} catch (error) {
+			console.log(error);
+			setErrorData(error);
+		} finally {
+			dispatch(loadStatusAction.isLoad(false));
+		}
+	},
 	media: async (data, setErrorData, dispatch) => {
 		try {
 			dispatch(loadStatusAction.isLoad(true));

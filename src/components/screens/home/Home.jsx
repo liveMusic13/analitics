@@ -34,12 +34,10 @@ const Home = () => {
 
 	const test = async () => {
 		try {
-			const response = await $axios.post('/ai-analytics', {
-				index: 1,
+			const response = await $axios.post('/competitors', {
+				themes_ind: [1, 1],
 				min_date: 1706760780,
 				max_date: 1707218189,
-				promt: 'Какая тематика этого текста?',
-				texts_ids: [1, 2, 3],
 			});
 			// const response = await $axios.post(
 			// 	'/ai-analytics',
