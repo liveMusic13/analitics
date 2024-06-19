@@ -1,6 +1,7 @@
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import styles from './InformationGraphs.module.scss';
 import BarInformation from './bar-information/BarInformation';
 import Bubbles from './bubbles/Bubbles';
@@ -9,6 +10,7 @@ import ScatterChart from './scatter-chart/ScatterChart';
 const InformationGraphs = () => {
 	const [activeButton, setActiveButton] = useState('dissemination');
 	const [isViewSource, setIsViewSource] = useState(true);
+	const { pathname } = useLocation();
 
 	const saveDiagramAsPDF = () => {
 		const input = document.getElementById('graph-for-download'); // замените 'myDiagram' на id вашего элемента с диаграммой
@@ -71,12 +73,14 @@ const InformationGraphs = () => {
 					</button>
 				</div>
 				<div className={styles.block__settings}>
-					<button
-						className={styles.button__description}
-						onClick={() => setIsViewSource(!isViewSource)}
-					>
-						Скрыть / показать пояснения к графику
-					</button>
+					{pathname !== '/information-graf' && (
+						<button
+							className={styles.button__description}
+							onClick={() => setIsViewSource(!isViewSource)}
+						>
+							Скрыть / показать пояснения к графику
+						</button>
+					)}
 					<button
 						className={styles.button__settings}
 						onClick={saveDiagramAsPDF}

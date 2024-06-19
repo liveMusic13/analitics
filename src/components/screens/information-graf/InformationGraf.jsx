@@ -46,8 +46,8 @@ const InformationGraf = () => {
 					</p>
 				</div>
 				<div className={styles.block__configureSearch}>
-					<DataForSearch />
-					<CustomCalendar />
+					<DataForSearch multi={false} />
+					<CustomCalendar multi={false} />
 					<AdditionalParameters />
 					<Field placeholder='Поиск по тексту' />
 					<Button buttonFor='information-graf'>Запуск</Button>

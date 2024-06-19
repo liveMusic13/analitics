@@ -20,7 +20,7 @@
 	background-color: $color_seven;
 }
 .block__sources {
-	min-width: adapt(258px, 1440px);
+	width: adapt(258px, 1440px);
 	padding: adapt(15px, 1440px) adapt(16px, 1440px);
 	border-radius: adapt(8px, 1440px);
 	box-shadow: 0px 4px 10px rgba($color: #000000, $alpha: 0.1);
@@ -29,7 +29,11 @@
 	flex-direction: column;
 	gap: adapt(8px, 1440px);
 	overflow-y: auto;
-	height: 100%;
+	height: 95%;
+	position: absolute;
+	top: 0;
+	right: 0;
+	background-color: $color_seven;
 
 	&::-webkit-scrollbar {
 		width: adapt(10px, 1440px);

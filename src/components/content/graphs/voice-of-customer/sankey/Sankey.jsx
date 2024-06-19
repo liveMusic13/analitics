@@ -7,7 +7,6 @@ import {
 	convertDataToSankeyFormat,
 } from '../../../../../utils/convertFields';
 import { generateColorsForObjects } from '../../../../../utils/generateColors';
-import styles from './Sankey.module.scss';
 
 HighchartsSankey(Highcharts);
 
@@ -57,7 +56,7 @@ const Sankey = ({ isViewSource }) => {
 				options={options}
 				containerProps={{ style: { width: '100%', height: '100%' } }}
 			/>
-			<div
+			{/* <div
 				className={styles.block__sources}
 				style={isViewSource ? { display: 'flex' } : { display: 'none' }}
 			>
@@ -66,7 +65,7 @@ const Sankey = ({ isViewSource }) => {
 						concatData(data).map(item => <p key={Math.random()}>{item.hub}</p>),
 					),
 				]}
-			</div>
+			</div> */}
 		</>
 	);
 };

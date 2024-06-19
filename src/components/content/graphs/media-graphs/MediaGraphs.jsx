@@ -45,7 +45,7 @@ const MediaGraphs = () => {
 						}
 						onClick={() => handleClick('automakers')}
 					>
-						Крупнейшие автопроизводители
+						Рейтинг тональности в СМИ
 					</button>
 					<button
 						className={
@@ -53,16 +53,16 @@ const MediaGraphs = () => {
 						}
 						onClick={() => handleClick('grade')}
 					>
-						Оценка технологических IPO
+						Динамика в СМИ
 					</button>
 				</div>
 				<div className={styles.block__settings}>
-					<button
+					{/* <button
 						className={styles.button__description}
 						onClick={() => setIsViewSource(!isViewSource)}
 					>
 						Скрыть / показать пояснения к графику
-					</button>
+					</button> */}
 					<button
 						className={styles.button__settings}
 						onClick={saveDiagramAsPDF}

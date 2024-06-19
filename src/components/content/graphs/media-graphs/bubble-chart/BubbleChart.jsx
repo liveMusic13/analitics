@@ -2,7 +2,6 @@ import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import { useSelector } from 'react-redux';
 import { convertDataForBubbleChart } from '../../../../../utils/convertFields';
-import styles from './BubbleChart.module.scss';
 
 const BubbleChart = ({ isViewSource }) => {
 	const { second_graph } = useSelector(state => state.dataMedia);
@@ -34,7 +33,7 @@ const BubbleChart = ({ isViewSource }) => {
 			},
 			gridLineWidth: 1,
 			title: {
-				text: 'Data',
+				text: 'Дата',
 			},
 			accessibility: {
 				enabled: false, //HELP: Отключаем модуль доступности
@@ -44,7 +43,7 @@ const BubbleChart = ({ isViewSource }) => {
 			startOnTick: false,
 			endOnTick: false,
 			title: {
-				text: 'Index',
+				text: 'Индекс СМИ',
 			},
 			labels: {
 				format: '{value}',
@@ -66,6 +65,10 @@ const BubbleChart = ({ isViewSource }) => {
 			followPointer: true,
 		},
 		plotOptions: {
+			bubble: {
+				minSize: 0.1, // Минимальный размер пузырька
+				maxSize: 20,
+			},
 			series: {
 				cursor: 'pointer',
 				point: {
@@ -96,14 +99,14 @@ const BubbleChart = ({ isViewSource }) => {
 				options={options}
 				containerProps={{ style: { width: '100%', height: '100%' } }}
 			/>
-			<div
+			{/* <div
 				className={styles.block__sources}
 				style={isViewSource ? { display: 'flex' } : { display: 'none' }}
 			>
 				{second_graph.map(name => (
 					<p key={Math.random()}>{name.name}</p>
 				))}
-			</div>
+			</div> */}
 		</>
 	);
 };

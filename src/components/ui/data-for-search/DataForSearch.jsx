@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { actions as dataForRequestActions } from '../../../store/data-for-request/dataForRequest.slice';
 import { truncateDescription } from '../../../utils/descriptionLength';
@@ -9,17 +9,33 @@ const DataForSearch = ({ multi }) => {
 	const dataUser = useSelector(state => state.dataUser);
 	const dataForRequest = useSelector(state => state.dataForRequest);
 	const [isViewOptions, setViewOptions] = useState(false);
+	const [checkedState, setCheckedState] = useState({});
 	const dispatch = useDispatch();
 
-	// useEffect(() => {
-	// 	if (isViewOptions) dispatch(dataForRequestActions.clearThemesInd(''));
-	// }, [isViewOptions]);
+	useEffect(() => {
+		dataUser.forEach(base => {
+			let isChecked = dataForRequest.themes_ind.includes(base.index_number);
+			setCheckedState(prevState => ({
+				...prevState,
+				[base.index_number]: isChecked,
+			}));
+		});
+	}, [dataForRequest.themes_ind, dataUser]);
+
+	const handleChange = indexNumber => {
+		setCheckedState(prevState => ({
+			...prevState,
+			[indexNumber]: !prevState[indexNumber],
+		}));
+	};
 
 	const findTargetFile = dataUser.find(
 		file => file.index_number === dataForRequest.index,
 	); //HELP: Находим файл по index_number
 
 	const nameFile = findTargetFile?.file;
+
+	const numLength = multi ? 26 : 30;
 
 	return (
 		<div className={styles.wrapper_data}>
@@ -67,7 +83,14 @@ const DataForSearch = ({ multi }) => {
 										}
 									}}
 								>
-									<p>{truncateDescription(option.file, 30)}</p>
+									{multi && (
+										<input
+											type='checkbox'
+											checked={checkedState[option.index_number] || false}
+											onChange={() => handleChange(option.index_number)}
+										/>
+									)}
+									<p>{truncateDescription(option.file, numLength)}</p>
 									<p className={styles.hover__group}>
 										{getFirstWordAfterUnderscore(option.file)}
 									</p>

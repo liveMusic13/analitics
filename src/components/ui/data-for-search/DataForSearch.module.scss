@@ -29,6 +29,9 @@
 			line-height: 1.2;
 			color: rgba($color: $color_four, $alpha: 0.6);
 			position: relative;
+			display: flex;
+			align-items: center;
+			gap: adapt(10px, 1440px);
 
 			> .hover__group {
 				display: none;

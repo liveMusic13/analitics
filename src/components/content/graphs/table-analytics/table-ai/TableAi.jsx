@@ -115,7 +115,7 @@ const TableAi = () => {
 							placeholder='Поиск'
 						/>
 					</div>
-					<div className={styles.block__select}>
+					{/* <div className={styles.block__select}>
 						<span>Количество элементов на странице</span>
 						<select
 							className={styles.select}
@@ -128,7 +128,7 @@ const TableAi = () => {
 								</option>
 							))}
 						</select>
-					</div>
+					</div> */}
 				</div>
 				<div className={styles.block__hiddenColumns}>
 					<label>
@@ -296,13 +296,13 @@ const TableAi = () => {
 					onClick={() => tableInstance.setPageIndex(0)}
 					disabled={!tableInstance.getCanPreviousPage()}
 				>
-					First page
+					{/* First page */} {'<<'}
 				</button>
 				<button
 					onClick={() => tableInstance.previousPage()}
 					disabled={!tableInstance.getCanPreviousPage()}
 				>
-					Previous page
+					{/* Previous page */} {'<'}
 				</button>
 				<ul>
 					<li>Страница: {tableInstance.options.state.pagination.pageIndex}</li>
@@ -313,11 +313,27 @@ const TableAi = () => {
 					defaultValue={tableInstance.options.state.pagination.pageIndex}
 					onChange={e => tableInstance.setPageIndex(e.target.value)}
 				/>
+
+				<div className={styles.block__select}>
+					<span>Количество элементов на странице</span>
+					<select
+						className={styles.select}
+						value={tableInstance.options.state.pagination.pageSize}
+						onChange={e => tableInstance.setPageSize(e.target.value)}
+					>
+						{countTableElemSize.map(pageSize => (
+							<option key={pageSize} value={pageSize}>
+								{pageSize}
+							</option>
+						))}
+					</select>
+				</div>
+
 				<button
 					onClick={() => tableInstance.nextPage()}
 					disabled={!tableInstance.getCanNextPage()}
 				>
-					Next page
+					{/* Next page */} {'>'}
 				</button>
 
 				<button
@@ -326,7 +342,7 @@ const TableAi = () => {
 					}
 					disabled={!tableInstance.getCanNextPage()}
 				>
-					Last page
+					{/* Last page */} {'>>'}
 				</button>
 			</div>
 		</div>

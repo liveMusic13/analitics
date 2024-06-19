@@ -9,7 +9,7 @@ import styles from './Bubbles.module.scss';
 const Bubbles = ({ isViewSource }) => {
 	const [chart, setChart] = useState(null);
 	const informationGraphData = useSelector(state => state.informationGraphData);
-
+	console.log(informationGraphData.values[0]);
 	useEffect(() => {
 		const timer = setTimeout(() => {
 			if (chart) {
@@ -49,6 +49,7 @@ const Bubbles = ({ isViewSource }) => {
 			series.data.setAll([
 				{
 					name: informationGraphData.values[0].author.fullname,
+					url: informationGraphData.values[0].author.url + '',
 					value: 0,
 					children: informationGraphData.values.map(author => {
 						return {
@@ -82,21 +83,21 @@ const Bubbles = ({ isViewSource }) => {
 	}, []);
 
 	return (
-		<>
-			<TransformWrapper>
-				<TransformComponent>
-					<div id='chartdiv' className={styles.chartdiv}></div>
-				</TransformComponent>
-			</TransformWrapper>
-			<div
-				className={styles.block__sources}
-				style={isViewSource ? { display: 'flex' } : { display: 'none' }}
-			>
-				{informationGraphData.values.map(author => {
-					return <p key={Math.random()}>{author.author.fullname}</p>;
-				})}
-			</div>
-		</>
+		// <>
+		<TransformWrapper>
+			<TransformComponent>
+				<div id='chartdiv' className={styles.chartdiv}></div>
+			</TransformComponent>
+		</TransformWrapper>
+		// <div
+		// 	className={styles.block__sources}
+		// 	style={isViewSource ? { display: 'flex' } : { display: 'none' }}
+		// >
+		// 	{informationGraphData.values.map(author => {
+		// 		return <p key={Math.random()}>{author.author.fullname}</p>;
+		// 	})}
+		// </div>
+		// </>
 	);
 };
 

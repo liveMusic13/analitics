@@ -59,7 +59,10 @@ const TableAiPost = () => {
 		<div className={styles.wrapper_table}>
 			<div className={styles.table__header}>
 				<div className={styles.header__topBlock}>
-					<div className={styles.block__globalFilter}>
+					<div
+						className={styles.block__globalFilter}
+						style={{ marginLeft: 'calc(-30/1440*100vw)' }}
+					>
 						<img src='../images/icons/input_button/search.svg' alt='search' />
 						<input
 							type='text'
@@ -68,7 +71,7 @@ const TableAiPost = () => {
 							placeholder='Поиск'
 						/>
 					</div>
-					<div className={styles.block__select}>
+					{/* <div className={styles.block__select}>
 						<span>Количество элементов на странице</span>
 						<select
 							className={styles.select}
@@ -81,7 +84,7 @@ const TableAiPost = () => {
 								</option>
 							))}
 						</select>
-					</div>
+					</div> */}
 				</div>
 				<div className={styles.block__hiddenColumns}>
 					<label>
@@ -210,6 +213,22 @@ const TableAiPost = () => {
 					defaultValue={tableInstance.options.state.pagination.pageIndex}
 					onChange={e => tableInstance.setPageIndex(e.target.value)}
 				/>
+
+				<div className={styles.block__select}>
+					<span>Количество элементов на странице</span>
+					<select
+						className={styles.select}
+						value={tableInstance.options.state.pagination.pageSize}
+						onChange={e => tableInstance.setPageSize(e.target.value)}
+					>
+						{countTableElemSize.map(pageSize => (
+							<option key={pageSize} value={pageSize}>
+								{pageSize}
+							</option>
+						))}
+					</select>
+				</div>
+
 				<button
 					onClick={() => tableInstance.nextPage()}
 					disabled={!tableInstance.getCanNextPage()}

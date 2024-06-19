@@ -32,7 +32,7 @@ const AiAnalytics = () => {
 			)}
 			<Content graph={true}>
 				<div className={styles.block__pageName}>
-					<h3 className={styles.pageName__title}>AiAnalytics</h3>
+					<h3 className={styles.pageName__title}>ИИ Анализ</h3>
 				</div>
 				<div className={styles.block__configureSearch}>
 					<DataForSearch />
@@ -49,7 +49,7 @@ const AiAnalytics = () => {
 				{isGraph.isGraph ? (
 					<TableAnalytics />
 				) : (
-					<BeforeSearch title='AiAnalytics' />
+					<BeforeSearch title='ИИ Анализ' />
 				)}
 			</Content>
 		</Layout>
