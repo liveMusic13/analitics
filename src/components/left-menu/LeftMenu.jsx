@@ -42,14 +42,16 @@ const LeftMenu = () => {
 									<li
 										key={itemMenu.id}
 										className={
-											itemMenu.id === 0 && pathname === '/user-tonality'
+											// itemMenu.id === 0 && pathname === '/user-tonality'
+											pathname === itemMenu.path
 												? styles.menu__item_active
 												: styles.menu__item
 										}
 									>
 										<img
 											src={
-												itemMenu.id === 0 && pathname === '/user-tonality'
+												// itemMenu.id === 0 && pathname === '/user-tonality'
+												pathname === itemMenu.path
 													? itemMenu.src_active
 													: itemMenu.src
 											}

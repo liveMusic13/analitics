@@ -3,7 +3,6 @@ import HighchartsReact from 'highcharts-react-official';
 import { useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { generateColorsForObjects } from '../../../../../utils/generateColors';
-import styles from './ScatterChart.module.scss';
 
 const ScatterChart = ({ isViewSource }) => {
 	const chartComponent = useRef(null);
@@ -112,14 +111,14 @@ const ScatterChart = ({ isViewSource }) => {
 	};
 
 	return (
-		<>
-			<HighchartsReact
-				ref={chartComponent}
-				highcharts={Highcharts}
-				options={options}
-				containerProps={{ style: { width: '100%' } }}
-			/>
-			<div
+		// <>
+		<HighchartsReact
+			ref={chartComponent}
+			highcharts={Highcharts}
+			options={options}
+			containerProps={{ style: { width: '100%' } }}
+		/>
+		/* <div
 				className={styles.block__sources}
 				style={isViewSource ? { display: 'flex' } : { display: 'none' }}
 			>
@@ -127,7 +126,7 @@ const ScatterChart = ({ isViewSource }) => {
 					return <p key={Math.random()}>{author.author.fullname}</p>;
 				})}
 			</div>
-		</>
+		</> */
 	);
 };
 export default ScatterChart;

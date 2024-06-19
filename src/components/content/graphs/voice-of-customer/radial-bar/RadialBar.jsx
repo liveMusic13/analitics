@@ -4,7 +4,6 @@ import HighchartsMore from 'highcharts/highcharts-more';
 import HighchartsSolidGauge from 'highcharts/modules/solid-gauge';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { TransformComponent, TransformWrapper } from 'react-zoom-pan-pinch';
 import {
 	concatData,
 	getCategoriesName,
@@ -136,7 +135,7 @@ const RadialBar = ({ isViewSource }) => {
 								</button>
 							))}
 						</div>
-						<TransformWrapper>
+						{/* <TransformWrapper>
 							<TransformComponent>
 								<HighchartsReact
 									highcharts={Highcharts}
@@ -144,10 +143,15 @@ const RadialBar = ({ isViewSource }) => {
 									containerProps={{ style: { width: '100%', height: '100%' } }}
 								/>
 							</TransformComponent>
-						</TransformWrapper>
+						</TransformWrapper> */}
+						<HighchartsReact
+							highcharts={Highcharts}
+							options={options}
+							containerProps={{ style: { width: '100%', height: '100%' } }}
+						/>
 					</div>
 
-					<div
+					{/* <div
 						className={styles.block__sources}
 						style={isViewSource ? { display: 'flex' } : { display: 'none' }}
 					>
@@ -162,7 +166,7 @@ const RadialBar = ({ isViewSource }) => {
 										)),
 							),
 						]}
-					</div>
+					</div> */}
 				</>
 			)}
 		</>

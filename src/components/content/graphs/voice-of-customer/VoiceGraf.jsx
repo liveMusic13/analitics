@@ -49,7 +49,7 @@ const VoiceGraf = () => {
 						}
 						onClick={() => handleClick('graf_one')}
 					>
-						График 1
+						График 1 - Распределение по источникам
 					</button>
 					<button
 						className={
@@ -57,16 +57,16 @@ const VoiceGraf = () => {
 						}
 						onClick={() => handleClick('graf_two')}
 					>
-						График 2
+						График 2 - Распределение по типам упоминаний
 					</button>
 				</div>
 				<div className={styles.block__settings}>
-					<button
+					{/* <button
 						className={styles.button__description}
 						onClick={() => setIsViewSource(!isViewSource)}
 					>
 						Скрыть / показать пояснения к графику
-					</button>
+					</button> */}
 					<button
 						className={styles.button__settings}
 						onClick={saveDiagramAsPDF}
