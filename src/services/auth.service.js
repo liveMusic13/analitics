@@ -5,8 +5,12 @@ import { TOKEN } from '../app.constants';
 export const authService = {
 	login: async (email, password, setIsAuth) => {
 		try {
+			// const { data } = await axios.post(
+			// 	'http://194.146.113.124:8005/auth/jwt/login',
+			// 	`grant_type=&username=${email}&password=${password}&scope=&client_id=&client_secret=`,
+			// );
 			const { data } = await axios.post(
-				'http://194.146.113.124:8005/auth/jwt/login',
+				'https://194.146.113.124:8005/auth/jwt/login',
 				`grant_type=&username=${email}&password=${password}&scope=&client_id=&client_secret=`,
 			);
 
