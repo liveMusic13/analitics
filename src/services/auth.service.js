@@ -10,7 +10,7 @@ export const authService = {
 			// 	`grant_type=&username=${email}&password=${password}&scope=&client_id=&client_secret=`,
 			// );
 			const { data } = await axios.post(
-				'https://194.146.113.124:8005/auth/jwt/login',
+				'https://tsapi.headsmade.com/auth/jwt/login',
 				`grant_type=&username=${email}&password=${password}&scope=&client_id=&client_secret=`,
 			);
 

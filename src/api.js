@@ -2,7 +2,8 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import { TOKEN } from './app.constants';
 
-const API_URL = 'http://194.146.113.124:8005';
+// const API_URL = 'http://194.146.113.124:8005';
+const API_URL = 'https://tsapi.headsmade.com';
 
 export const $axios = axios.create({
 	baseURL: API_URL,
