@@ -28,6 +28,7 @@ const MediaRating = () => {
 			) : (
 				<LeftMenu />
 			)}
+
 			<Content>
 				<h3 className={styles.pageName__title}>Медиа рейтинг</h3>
 				<div className={styles.block__configureSearch}>

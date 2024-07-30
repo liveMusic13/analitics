@@ -30,6 +30,7 @@ const AiAnalytics = () => {
 			) : (
 				<LeftMenu />
 			)}
+
 			<Content graph={true}>
 				<div className={styles.block__pageName}>
 					<h3 className={styles.pageName__title}>ИИ Анализ</h3>

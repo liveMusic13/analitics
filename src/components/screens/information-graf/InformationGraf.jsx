@@ -32,6 +32,7 @@ const InformationGraf = () => {
 			) : (
 				<LeftMenu />
 			)}
+
 			<Content>
 				<div className={styles.block__pageName}>
 					<h3 className={styles.pageName__title}>Информационный граф</h3>

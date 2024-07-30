@@ -30,6 +30,7 @@ const UserTonality = () => {
 			) : (
 				<LeftMenu />
 			)}
+
 			<Content>
 				<div className={styles.block__pageName}>
 					<h3 className={styles.pageName__title}>Тональный ландшафт</h3>

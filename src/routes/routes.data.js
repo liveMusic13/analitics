@@ -1,6 +1,7 @@
 import AiAnalytics from '../components/screens/ai-analytics/AiAnalytics';
 import Auth from '../components/screens/auth/Auth';
 import Competitive from '../components/screens/competitive/Competitive';
+import DataSet from '../components/screens/data-set/DataSet';
 import Faq from '../components/screens/faq/Faq';
 import Home from '../components/screens/home/Home';
 import InformationGraf from '../components/screens/information-graf/InformationGraf';
@@ -58,6 +59,21 @@ export const routes = [
 	{
 		path: '/competitive',
 		component: Competitive,
+		isAuth: true,
+	},
+	{
+		path: '/data-set',
+		component: DataSet,
+		isAuth: true,
+	},
+	{
+		path: '/data-set/:id',
+		component: DataSet,
+		isAuth: true,
+	},
+	{
+		path: '/data-set/processed/:id',
+		component: DataSet,
 		isAuth: true,
 	},
 ];

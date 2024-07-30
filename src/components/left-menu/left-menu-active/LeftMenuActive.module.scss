@@ -32,6 +32,7 @@
 			gap: adapt(3px, 1440px);
 
 			> .menu__item {
+				position: relative;
 				padding: adapt(15px, 1440px) adapt(13px, 1440px);
 				font-size: 0.81rem;
 				line-height: 1.4;
@@ -52,6 +53,7 @@
 			}
 
 			> .menu__item_active {
+				position: relative;
 				background-color: $color_eleven;
 				font-size: 0.81rem;
 				@include menu-item();
@@ -77,6 +79,7 @@
 			width: 100%;
 
 			> .menu__item {
+				position: relative;
 				padding: adapt(15px, 1440px) adapt(13px, 1440px);
 				font-size: 0.81rem;
 				line-height: 1.4;
@@ -111,6 +114,7 @@
 			// 	}
 			// }
 			> .menu__item_active {
+				position: relative;
 				background-color: $color_eleven;
 				font-size: 0.81rem;
 				@include menu-item();
@@ -129,4 +133,16 @@
 			}
 		}
 	}
+}
+
+.not_ready {
+	position: absolute;
+	top: 0;
+	left: 120%;
+	width: adapt(180px, 1440px);
+	background-color: $color_seven;
+	border: 1px solid rgba($color: $color_four, $alpha: 0.2);
+	padding: adapt(10px, 1440px) adapt(20px, 1440px);
+	border-radius: adapt(8px, 1440px);
+	color: $color_four;
 }
