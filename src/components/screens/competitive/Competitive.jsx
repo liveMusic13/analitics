@@ -28,6 +28,7 @@ const Competitive = () => {
 			) : (
 				<LeftMenu />
 			)}
+
 			<Content>
 				<div className={styles.block__pageName}>
 					<h3 className={styles.pageName__title}>Конкуренты</h3>

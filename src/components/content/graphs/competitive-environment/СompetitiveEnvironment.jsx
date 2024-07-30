@@ -9,7 +9,7 @@ import styles from './СompetitiveEnvironment.module.scss';
 const СompetitiveEnvironment = () => {
 	const [activeButton, setActiveButton] = useState('dynamic');
 	const [activeSubcategory, setActiveSubcategory] = useState('Socmedia');
-	const [isViewSource, setIsViewSource] = useState(true);
+	const [isViewSource, setIsViewSource] = useState(false);
 
 	const handleClick = button => {
 		setActiveButton(button);
@@ -72,7 +72,8 @@ const СompetitiveEnvironment = () => {
 								? styles.activeSubcategory
 								: styles.button
 						}
-						disabled={activeButton === 'dynamic' ? true : false}
+						style={activeButton === 'dynamic' ? { display: 'none' } : {}}
+						// disabled={activeButton === 'dynamic' ? true : false}
 						onClick={() =>
 							activeButton === 'dynamic'
 								? undefined
@@ -87,7 +88,8 @@ const СompetitiveEnvironment = () => {
 								? styles.activeSubcategory
 								: styles.button
 						}
-						disabled={activeButton === 'dynamic' ? true : false}
+						style={activeButton === 'dynamic' ? { display: 'none' } : {}}
+						// disabled={activeButton === 'dynamic' ? true : false}
 						onClick={() =>
 							activeButton === 'dynamic'
 								? undefined

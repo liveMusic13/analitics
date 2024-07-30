@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { $axios } from '../../../api';
 import { useAuth } from '../../../hooks/useAuth';
+import { otherService } from '../../../services/other.service';
 import { actions as dataUserAction } from '../../../store/data-user/dataUser.slice';
 import { actions as isActiveMenuAction } from '../../../store/is-active-menu/isActiveMenu.slice';
 import Content from '../../content/Content';
@@ -33,32 +34,41 @@ const Home = () => {
 	}, []);
 
 	const test = async () => {
-		try {
-			const response = await $axios.post('/competitors', {
-				themes_ind: [1, 1],
-				min_date: 1706760780,
-				max_date: 1707218189,
-			});
-			// const response = await $axios.post(
-			// 	'/ai-analytics',
-			// 	`index=1&min_date=1706760780&max_date=1707218189&texts_ids=[1, 2, 3]&promt=Какая тематика этого текста?`,
-			// );
-			// const response = await $axios.get(
-			// 	'http://194.146.113.124:8005/ai-analytics?index=1&min_date=1706760780&max_date=1707218189&promt=Какая тематика этого текста?&texts_ids=[1,3,4]',
-			// );
+		// try {
+		// 	const response = await $axios.post('/competitors', {
+		// 		themes_ind: [1, 1],
+		// 		min_date: 1706760780,
+		// 		max_date: 1707218189,
+		// 	});
+		// 	// const response = await $axios.post(
+		// 	// 	'/ai-analytics',
+		// 	// 	`index=1&min_date=1706760780&max_date=1707218189&texts_ids=[1, 2, 3]&promt=Какая тематика этого текста?`,
+		// 	// );
+		// 	// const response = await $axios.get(
+		// 	// 	'http://194.146.113.124:8005/ai-analytics?index=1&min_date=1706760780&max_date=1707218189&promt=Какая тематика этого текста?&texts_ids=[1,3,4]',
+		// 	// );
 
-			console.log(response);
-		} catch (error) {
-			console.log(error);
-		}
+		// 	console.log(response);
+		// } catch (error) {
+		// 	console.log(error);
+		// }
+		otherService.fileLoad(
+			{
+				folder_name: 'Гильдия',
+				file_name: 'dsfsdf',
+			},
+			undefined,
+			dispatch,
+		);
 	};
 
 	return (
 		<Layout justifyContent='space-between'>
-			<LeftMenu />
-			{isActiveMenu.isActiveMenu && <LeftMenuActive />}
+			{/* <LeftMenu />
+			{isActiveMenu.isActiveMenu && <LeftMenuActive />} */}
+			{isActiveMenu.isActiveMenu ? <LeftMenuActive /> : <LeftMenu />}
 			<Content>
-				<button onClick={test}>test</button>
+				{/* <button onClick={test}>test</button> */}
 				<SectionSelection />
 			</Content>
 		</Layout>

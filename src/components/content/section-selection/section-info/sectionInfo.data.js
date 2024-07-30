@@ -9,12 +9,14 @@ export const data = [
 		id: 1,
 		src: './images/icons/menu/information_graph_active.svg',
 		text: 'Граф информации',
+		// text: 'Информационный граф',
 		path: '/information-graf',
 	},
 	{
 		id: 2,
 		src: './images/icons/menu/media_rating_active.svg',
-		text: 'СМИ',
+		// text: 'СМИ',
+		text: 'Медиа рейтинг',
 		path: '/media-rating',
 	},
 	{
@@ -39,7 +41,7 @@ export const data = [
 		id: 6,
 		src: './images/icons/menu/show_data_active.svg',
 		text: 'Набор данных',
-		path: '/user-tonality',
+		path: '/data-set',
 	},
 	{
 		id: 7,

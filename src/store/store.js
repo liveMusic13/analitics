@@ -6,10 +6,13 @@ import { reducer as dataMedia } from './data-media/dataMedia.slice';
 import { reducer as dataUser } from './data-user/dataUser.slice';
 import { reducer as dataVoice } from './data-voice/dataVoice.slice';
 import { reducer as errorState } from './error-state/errorState.slice';
+import { reducer as folderTarget } from './folder-target/folderTarget.slice';
 import { reducer as informationGraphData } from './information-graf-data/informationGrafData.slice';
 import { reducer as isActiveMenu } from './is-active-menu/isActiveMenu.slice';
 import { reducer as isGraph } from './is-graph/isGraph.slice';
 import { reducer as loadStatus } from './load-status/loadStatus.slice';
+import { reducer as popupDelete } from './popup-delete/popupDelete.slice';
+import { reducer as popupInFolder } from './popup-in-folder/popupInFolder.slice';
 import { reducer as isPopup } from './popup/popup.slice';
 import { reducer as themesData } from './themes-data/themesData.slice';
 import { reducer as userTonalityData } from './user-tonality-data/userTonalityData.slice';
@@ -29,6 +32,9 @@ const reducers = combineReducers({
 	aiData: aiData,
 	isPopup: isPopup,
 	competitiveData: competitiveData,
+	folderTarget: folderTarget,
+	popupInFolder: popupInFolder,
+	popupDelete: popupDelete,
 });
 
 export const store = configureStore({

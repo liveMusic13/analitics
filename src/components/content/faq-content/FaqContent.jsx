@@ -8,7 +8,7 @@ const FaqContent = () => {
 			<h2 className={styles.title}>FAQ</h2>
 			<ul className={styles.menu}>
 				{faqData.map(question => (
-					<Question question={question} />
+					<Question key={question.id} question={question} />
 				))}
 			</ul>
 		</div>

@@ -11,7 +11,7 @@ const Popup = ({ text }) => {
 				className={styles.button__exit}
 				onClick={() => dispatch(popupAction.defaultPopup(''))}
 			>
-				<img src='../images/icons/exit.svg' alt='exit' />
+				<img src='/images/icons/exit.svg' alt='exit' />
 			</button>
 			<p className={styles.text}>{text}</p>
 		</div>

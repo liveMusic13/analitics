@@ -1,4 +1,5 @@
 import Cookies from 'js-cookie';
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { TOKEN } from '../../../app.constants';
@@ -13,6 +14,16 @@ const LeftMenuActive = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
+	const [hoveredItem, setHoveredItem] = useState(null);
+
+	const handleMouseEnter = id => {
+		setHoveredItem(id);
+	};
+
+	const handleMouseLeave = () => {
+		setHoveredItem(null);
+	};
+
 	const logoutHandler = () => {
 		Cookies.remove(TOKEN);
 		setIsAuth(false);
@@ -22,7 +33,10 @@ const LeftMenuActive = () => {
 	return (
 		<>
 			{pathname === '/' ? (
-				<div className={styles.wrapper_menu}>
+				<div
+					className={styles.wrapper_menu}
+					style={{ position: 'absolute', left: '-5%', zIndex: '5' }}
+				>
 					<img
 						className={styles.logo}
 						src='./images/full_logo.svg'
@@ -102,11 +116,21 @@ const LeftMenuActive = () => {
 			) : (
 				<div
 					className={styles.wrapper_menu}
-					style={
-						pathname !== '/'
-							? { position: 'absolute', left: '-5%', zIndex: '5' }
-							: {}
-					}
+					// style={
+					// 	pathname !== '/'
+					// 		? { position: 'absolute', left: '-5%', zIndex: '5' }
+					// 		: {}
+					// }
+					style={{ position: 'absolute', left: '-5%', zIndex: '5' }}
+					// style={
+					// 	pathname !== '/'
+					// 		? {
+					// 				position: 'absolute',
+					// 				left: 'calc(70/1440*100vw)',
+					// 				zIndex: '5',
+					// 			}
+					// 		: {}
+					// }
 				>
 					<img
 						className={styles.logo}
@@ -114,7 +138,7 @@ const LeftMenuActive = () => {
 						alt='logo'
 					/>
 					<nav className={styles.menu}>
-						<ul className={styles.menu__list}>
+						{/* <ul className={styles.menu__list}>
 							{menuPageData.map(itemMenu => {
 								return (
 									<Link
@@ -135,6 +159,43 @@ const LeftMenuActive = () => {
 											alt={itemMenu.title}
 										/>
 										{itemMenu.title}
+									</Link>
+								);
+							})}
+						</ul> */}
+
+						<ul className={styles.menu__list}>
+							{menuPageData.map(itemMenu => {
+								const isDisabled = itemMenu.path === '/none';
+								const isActive = pathname === itemMenu.path;
+
+								return (
+									<Link
+										disabled={isDisabled}
+										key={itemMenu.id}
+										to={itemMenu.path}
+										className={
+											pathname === itemMenu.path
+												? styles.menu__item_active
+												: styles.menu__item
+										}
+										onMouseEnter={() => handleMouseEnter(itemMenu.id)}
+										onMouseLeave={handleMouseLeave}
+									>
+										<img
+											src={
+												pathname === itemMenu.path
+													? itemMenu.src_active
+													: itemMenu.src
+											}
+											alt={itemMenu.title}
+										/>
+										{itemMenu.title}
+										{isDisabled &&
+											itemMenu.path &&
+											hoveredItem === itemMenu.id && (
+												<p className={styles.not_ready}>В разработке</p>
+											)}
 									</Link>
 								);
 							})}
