@@ -2,7 +2,7 @@ import AiAnalytics from '../components/screens/ai-analytics/AiAnalytics';
 import Auth from '../components/screens/auth/Auth';
 import Competitive from '../components/screens/competitive/Competitive';
 import DataSet from '../components/screens/data-set/DataSet';
-import Faq from '../components/screens/faq/FAQ';
+import Faq from '../components/screens/faq/Faq';
 import Home from '../components/screens/home/Home';
 import InformationGraf from '../components/screens/information-graf/InformationGraf';
 import MediaRating from '../components/screens/media-rating/MediaRating';
