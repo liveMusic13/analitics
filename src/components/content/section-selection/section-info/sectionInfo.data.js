@@ -47,7 +47,7 @@ export const data = [
 		id: 7,
 		src: './images/icons/menu/authors_clastarization_active.svg',
 		text: 'Кластеризация авторов',
-		path: '/user-tonality',
+		path: '/clustering',
 	},
 	// {
 	// 	id: 8,

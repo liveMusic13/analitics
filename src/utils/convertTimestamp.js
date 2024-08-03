@@ -21,3 +21,20 @@ export function convertDateToTimestamp(dateTimeString) {
 	const date = new Date(dateTimeString);
 	return Math.floor(date / 1000);
 }
+
+export function convertUnixTimestampToDate(unixTimestamp) {
+	// Создаем объект Date из Unix timestamp (в миллисекундах)
+	const date = new Date(unixTimestamp * 1000);
+
+	// Получаем составляющие даты
+	const day = String(date.getDate()).padStart(2, '0');
+	const month = String(date.getMonth() + 1).padStart(2, '0');
+	const year = date.getFullYear();
+	const hours = String(date.getHours()).padStart(2, '0');
+	const minutes = String(date.getMinutes()).padStart(2, '0');
+
+	// Форматируем дату в "DD.MM.YYYY HH:mm"
+	const formattedDate = `${day}.${month}.${year} ${hours}:${minutes}`;
+
+	return formattedDate;
+}

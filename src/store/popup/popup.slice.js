@@ -3,6 +3,8 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
 	isPopup: false,
 	description: '',
+	link: '',
+	time: '',
 };
 
 export const isPopup = createSlice({
@@ -16,7 +18,9 @@ export const isPopup = createSlice({
 			state.isPopup = false;
 		},
 		addText: (state, { payload }) => {
-			state.description = payload;
+			state.description = payload.description;
+			state.link = payload.link;
+			state.time = payload.time;
 		},
 	},
 });

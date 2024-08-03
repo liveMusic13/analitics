@@ -6,7 +6,9 @@ import styles from './Content.module.scss';
 
 const Content = ({ children, graph, isFolder }) => {
 	const dispatch = useDispatch();
-	const { isPopup, description } = useSelector(state => state.isPopup);
+	const { isPopup, description, link, time } = useSelector(
+		state => state.isPopup,
+	);
 
 	// const isDataSetPath = /^\/data-set\/[^/]+$/.test(location.pathname);
 	const isDataSetPath = /^\/data-set(\/processed)?\/[^/]+$/.test(
@@ -18,6 +20,7 @@ const Content = ({ children, graph, isFolder }) => {
 		// justifyContent: isFolder ? 'flex-start' : 'center',
 		alignItems: isDataSetPath ? 'flex-start' : 'center',
 		// alignItems: isFolder ? 'flex-start' : 'center',
+		overflow: isDataSetPath ? 'hidden' : 'visible',
 	};
 
 	return (
@@ -34,7 +37,7 @@ const Content = ({ children, graph, isFolder }) => {
 							isPopup ? dispatch(popupAction.defaultPopup('')) : undefined
 						}
 					></div>
-					<Popup text={description} />
+					<Popup text={description} url={link} time={time} />
 				</>
 			)}
 			{children}

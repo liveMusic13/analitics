@@ -153,18 +153,28 @@ const DataSetContent = () => {
 					}
 				</>
 			);
-		} else {
-			// return (
-			// 	<iframe
-			// 		src='https://projector.tensorflow.org/'
-			// 		width='100%'
-			// 		height='calc(600/1000*100vh)'
-			// 		style={{ border: 'none' }}
-			// 		title='TensorFlow Projector'
-			// 	></iframe>
-			// );
-			return;
 		}
+		// else {
+		// 	return (
+		// 		<iframe
+		// 			src='https://projector.tensorflow.org/'
+		// 			width='100%'
+		// 			height='calc(600/1000*100vh)'
+		// 			style={{ border: 'none' }}
+		// 			title='TensorFlow Projector'
+		// 		></iframe>
+		// 	);
+		// }
+	};
+
+	const styleContent = {
+		justifyContent:
+			allData && allData.values && allData.values.length !== 0 ? '' : 'center',
+		alignItems:
+			allData && allData.values && allData.values.length !== 0 ? '' : 'center',
+		paddingTop:
+			buttonTarget === 'three' ? 'calc(24/1440*100vw)' : 'calc(92/1440*100vw)',
+		paddingRight: buttonTarget === 'three' ? '0px' : 'calc(44/1440*100vw)',
 	};
 
 	return (
@@ -175,22 +185,22 @@ const DataSetContent = () => {
 					className={styles.tab__button}
 					onClick={() => onClick('one')}
 				>
-					Файлы для обработки
+					Файлы данных
 				</button>
 				<button
 					ref={tabTwoRef}
 					className={styles.tab__button}
 					onClick={() => onClick('two')}
 				>
-					Обработанные файлы
+					Файлы кластеризации авторов
 				</button>
-				<button
+				{/* <button
 					ref={tabThreeRef}
 					className={styles.tab__button}
 					onClick={() => onClick('three')}
 				>
 					Embedding Projector
-				</button>
+				</button> */}
 				<div
 					className={styles.block__target}
 					style={styleTarget(elementWidth, buttonTarget)}
@@ -199,9 +209,10 @@ const DataSetContent = () => {
 			<div
 				className={styles.block__content}
 				style={
-					allData && allData.values && allData.values.length !== 0
-						? {}
-						: { justifyContent: 'center', alignItems: 'center' }
+					// allData && allData.values && allData.values.length !== 0
+					// 	? {}
+					// 	: { justifyContent: 'center', alignItems: 'center' }
+					styleContent
 				}
 			>
 				{!(buttonTarget === 'three') && (

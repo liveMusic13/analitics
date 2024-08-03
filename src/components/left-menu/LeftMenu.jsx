@@ -1,7 +1,7 @@
 import Cookies from 'js-cookie';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { TOKEN } from '../../app.constants';
 import { useAuth } from '../../hooks/useAuth';
 import { actions as isActiveMenuAction } from '../../store/is-active-menu/isActiveMenu.slice';
@@ -111,7 +111,10 @@ const LeftMenu = () => {
 		<>
 			{pathname === '/' ? (
 				<div className={styles.wrapper_menu}>
-					<img className={styles.logo} src='./images/logo.svg' alt='logo' />
+					<Link to='/'>
+						<img className={styles.logo} src='./images/logo.svg' alt='logo' />
+					</Link>
+					{/* <img className={styles.logo} src='./images/logo.svg' alt='logo' /> */}
 					<nav className={styles.menu}>
 						<ul className={styles.menu__list}>
 							{menuSettings.map(itemMenu => {
@@ -150,7 +153,10 @@ const LeftMenu = () => {
 				</div>
 			) : (
 				<div className={styles.wrapper_menu}>
-					<img className={styles.logo} src='/images/logo.svg' alt='logo' />
+					{/* <img className={styles.logo} src='/images/logo.svg' alt='logo' /> */}
+					<Link to='/'>
+						<img className={styles.logo} src='./images/logo.svg' alt='logo' />
+					</Link>
 					<nav className={styles.menu}>
 						{/* <ul className={styles.menu__list}>
 							{menuPageData.map(itemMenu => {

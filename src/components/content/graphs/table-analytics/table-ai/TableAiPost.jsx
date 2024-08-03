@@ -172,10 +172,23 @@ const TableAiPost = () => {
 									<td
 										key={cellEl.id}
 										onClick={() => {
+											console.log(rowEl.original);
 											if (cellEl.column.id === 'Текст') {
-												dispatch(popupAction.addText(rowEl.original.text));
+												dispatch(
+													popupAction.addText({
+														description: rowEl.original.text,
+														link: null,
+														time: null,
+													}),
+												);
 											} else {
-												dispatch(popupAction.addText(rowEl.original.llm_text));
+												dispatch(
+													popupAction.addText({
+														description: rowEl.original.llm_text,
+														link: null,
+														time: null,
+													}),
+												);
 											}
 											dispatch(popupAction.togglePopup(''));
 										}}

@@ -53,7 +53,7 @@ export const menuPageData = [
 		title: 'Кластеризация авторов',
 		src: '/images/icons/menu/authors_clastarization.svg',
 		src_active: '/images/icons/menu/authors_clastarization_active.svg',
-		path: '/none',
+		path: '/clustering',
 	},
 	// {
 	// 	id: 8,
