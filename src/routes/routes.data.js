@@ -1,5 +1,6 @@
 import AiAnalytics from '../components/screens/ai-analytics/AiAnalytics';
 import Auth from '../components/screens/auth/Auth';
+import Clustering from '../components/screens/clustering/Clustering';
 import Competitive from '../components/screens/competitive/Competitive';
 import DataSet from '../components/screens/data-set/DataSet';
 import Faq from '../components/screens/faq/Faq';
@@ -74,6 +75,11 @@ export const routes = [
 	{
 		path: '/data-set/processed/:id',
 		component: DataSet,
+		isAuth: true,
+	},
+	{
+		path: '/clustering',
+		component: Clustering,
 		isAuth: true,
 	},
 ];

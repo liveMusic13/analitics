@@ -38,3 +38,21 @@
 		line-height: 1.5rem;
 	}
 }
+
+.block__link {
+	margin-top: adapt(20px, 1440px);
+
+	> .title {
+		font-size: 0.88rem;
+		color: rgba($color: $color_four, $alpha: 0.5);
+	}
+
+	> .link {
+	}
+}
+
+.time {
+	font-size: 0.88rem;
+	color: rgba($color: $color_four, $alpha: 0.5);
+	margin-bottom: adapt(20px, 1440px);
+}

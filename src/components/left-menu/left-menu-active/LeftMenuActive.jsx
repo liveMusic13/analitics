@@ -37,11 +37,13 @@ const LeftMenuActive = () => {
 					className={styles.wrapper_menu}
 					style={{ position: 'absolute', left: '-5%', zIndex: '5' }}
 				>
-					<img
-						className={styles.logo}
-						src='./images/full_logo.svg'
-						alt='logo'
-					/>
+					<Link to='/'>
+						<img
+							className={styles.logo}
+							src='./images/full_logo.svg'
+							alt='logo'
+						/>
+					</Link>
 					{/* <nav className={styles.menu}>
 						<ul className={styles.menu__list}>
 							<li className={styles.menu__item}>
@@ -132,11 +134,13 @@ const LeftMenuActive = () => {
 					// 		: {}
 					// }
 				>
-					<img
-						className={styles.logo}
-						src='./images/full_logo.svg'
-						alt='logo'
-					/>
+					<Link to='/'>
+						<img
+							className={styles.logo}
+							src='./images/full_logo.svg'
+							alt='logo'
+						/>
+					</Link>
 					<nav className={styles.menu}>
 						{/* <ul className={styles.menu__list}>
 							{menuPageData.map(itemMenu => {
